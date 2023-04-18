@@ -1,0 +1,8 @@
+.header {
+  grid-area: header;
+  background-color: #20232a;
+}
+.header__logo {
+  width: 50px;
+  display: inline-block;
+}
