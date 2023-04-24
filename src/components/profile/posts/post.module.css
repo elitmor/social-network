@@ -1,0 +1,16 @@
+.post {
+  display: flex;
+}
+
+.avatar {
+  width: 30px;
+  margin-right: 10px;
+}
+
+.message {
+  margin-right: 10px;
+}
+
+.like {
+  color: #40c0e7;
+}
