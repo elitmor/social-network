@@ -23,3 +23,8 @@ a {
   grid-template-rows: 60px 1fr;
   grid-template-columns: 2fr 10fr;
 }
+
+.main {
+  grid-area: content;
+  background-color: #20232a;
+}

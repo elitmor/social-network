@@ -1,6 +1,7 @@
+import { Dialogs } from '../dialogs/Dialogs';
 import { Header } from '../header/Header';
 import { Navbar } from '../navbar/Navbar';
-import { Profile } from '../profile/Profile';
+// import { Profile } from '../profile/Profile';
 
 import './App.css';
 
@@ -9,7 +10,10 @@ export const App = () => {
     <div className='wrapper'>
       <Header />
       <Navbar />
-      <Profile />
+      <main className='main'>
+        {/* <Profile /> */}
+        <Dialogs />
+      </main>
     </div>
   );
 };
