@@ -1,3 +1,4 @@
+import { NavLink } from 'react-router-dom';
 import style from './navbar.module.css';
 
 export const Navbar = () => {
@@ -5,10 +6,28 @@ export const Navbar = () => {
     <nav className={style.nav}>
       <ul>
         <li className={style.item}>
-          <a href='/profile'>Profile</a>
+          <NavLink
+            to='/profile'
+            style={({ isActive }) => {
+              return {
+                color: isActive ? '#40c0e7' : 'inherit',
+              };
+            }}
+          >
+            Profile
+          </NavLink>
         </li>
         <li className={style.item}>
-          <a href='/dialogs'>Dialogs</a>
+          <NavLink
+            to='/dialogs'
+            style={({ isActive }) => {
+              return {
+                color: isActive ? '#40c0e7' : 'inherit',
+              };
+            }}
+          >
+            Dialogs
+          </NavLink>
         </li>
       </ul>
     </nav>
