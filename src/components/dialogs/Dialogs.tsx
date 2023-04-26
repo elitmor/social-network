@@ -1,5 +1,5 @@
 // import style from './dialogs.module.css';
 
 export const Dialogs = () => {
-  return <div></div>;
+  return <div>Dialogs</div>;
 };
