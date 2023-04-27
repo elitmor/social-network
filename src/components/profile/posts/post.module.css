@@ -4,11 +4,12 @@
 
 .avatar {
   width: 30px;
-  margin-right: 10px;
+  margin-bottom: 0.5rem;
+  margin-right: 0.5rem;
 }
 
 .message {
-  margin-right: 10px;
+  margin-right: 0.5rem;
 }
 
 .like {

@@ -1,0 +1,19 @@
+.dialogs {
+  display: flex;
+}
+
+.items {
+  margin-right: 5rem;
+}
+
+.item {
+  margin-bottom: 1rem;
+}
+
+.message {
+  margin-bottom: 1rem;
+}
+
+.active {
+  color: #40c0e7;
+}

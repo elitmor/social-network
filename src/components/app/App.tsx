@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Dialogs } from '../dialogs/Dialogs';
 import { Header } from '../header/Header';
 import { Navbar } from '../navbar/Navbar';
@@ -22,7 +22,7 @@ export const App = () => {
               element={<Profile />}
             />
             <Route
-              path='/dialogs'
+              path='dialogs/*'
               element={<Dialogs />}
             />
           </Routes>
