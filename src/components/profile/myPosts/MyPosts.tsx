@@ -1,10 +1,9 @@
-import { Post } from '../Post';
-import style from './posts.module.css';
+import { Post } from './post/Post';
+import style from './myPosts.module.css';
 
-export const Posts = () => {
+export const MyPosts = () => {
   return (
     <div className={style.posts}>
-      <h3 className={style.title}>My posts</h3>
       <textarea className={style.textarea}></textarea>
       <button className={style.btn}>Add post</button>
       <Post

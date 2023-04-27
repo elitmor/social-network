@@ -1,10 +1,12 @@
-import { Posts } from './posts/post/Posts';
+import { MyPosts } from './myPosts/MyPosts';
 import style from './profile.module.css';
+import { ProfileInfo } from './profileInfo/ProfileInfo';
 
 export const Profile = () => {
   return (
     <div className={style.profile}>
-      <Posts />
+      <ProfileInfo />
+      <MyPosts />
     </div>
   );
 };

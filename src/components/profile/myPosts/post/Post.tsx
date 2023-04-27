@@ -1,4 +1,4 @@
-import avatar from '../../../assets/avatar.svg';
+import avatar from '../../../../assets/avatar.svg';
 import style from './post.module.css';
 
 type PostPropsType = {

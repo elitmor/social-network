@@ -1,9 +1,9 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { Dialogs } from '../dialogs/Dialogs';
 import { Header } from '../header/Header';
 import { Navbar } from '../navbar/Navbar';
 import { Profile } from '../profile/Profile';
 import './App.css';
+import { MyDialogs } from '../dialogs/MyDialogs';
 
 export const App = () => {
   return (
@@ -23,7 +23,7 @@ export const App = () => {
             />
             <Route
               path='dialogs/*'
-              element={<Dialogs />}
+              element={<MyDialogs />}
             />
           </Routes>
         </main>
