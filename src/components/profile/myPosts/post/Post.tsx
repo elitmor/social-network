@@ -2,6 +2,7 @@ import avatar from '../../../../assets/avatar.svg';
 import style from './post.module.css';
 
 type PostPropsType = {
+  id: number;
   message: string;
   likesCount: number;
 };

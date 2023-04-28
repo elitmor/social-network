@@ -1,11 +1,18 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { MyDialogs } from '../dialogs/MyDialogs';
 import { Header } from '../header/Header';
 import { Navbar } from '../navbar/Navbar';
 import { Profile } from '../profile/Profile';
 import './App.css';
-import { MyDialogs } from '../dialogs/MyDialogs';
+import { PostType, DialogType, MessageType } from '../../../types/types';
 
-export const App = () => {
+interface AppProps {
+  posts: PostType[];
+  dialogs: DialogType[];
+  messages: MessageType[];
+}
+
+export const App = (props: AppProps) => {
   return (
     <div className='wrapper'>
       <BrowserRouter>
@@ -15,15 +22,20 @@ export const App = () => {
           <Routes>
             <Route
               path='/'
-              element={<Profile />}
+              element={<Profile posts={props.posts} />}
             />
             <Route
               path='/profile'
-              element={<Profile />}
+              element={<Profile posts={props.posts} />}
             />
             <Route
               path='dialogs/*'
-              element={<MyDialogs />}
+              element={
+                <MyDialogs
+                  dialogs={props.dialogs}
+                  messages={props.messages}
+                />
+              }
             />
           </Routes>
         </main>

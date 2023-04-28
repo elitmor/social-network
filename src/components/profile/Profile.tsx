@@ -1,12 +1,17 @@
+import { PostType } from '../../../types/types';
 import { MyPosts } from './myPosts/MyPosts';
 import style from './profile.module.css';
 import { ProfileInfo } from './profileInfo/ProfileInfo';
 
-export const Profile = () => {
+interface ProfileProps {
+  posts: PostType[];
+}
+
+export const Profile = (props: ProfileProps) => {
   return (
     <div className={style.profile}>
       <ProfileInfo />
-      <MyPosts />
+      <MyPosts posts={props.posts} />
     </div>
   );
 };

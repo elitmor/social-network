@@ -1,6 +1,7 @@
 import style from './message.module.css';
 
 type MessagePropsType = {
+  id: number;
   message: string;
 };
 

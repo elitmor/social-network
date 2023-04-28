@@ -1,23 +1,26 @@
-import { Post } from './post/Post';
+import { PostType } from '../../../../types/types';
 import style from './myPosts.module.css';
+import { Post } from './post/Post';
 
-export const MyPosts = () => {
+interface MyPostsProps {
+  posts: PostType[];
+}
+
+export const MyPosts = (props: MyPostsProps) => {
+  const postsElements = props.posts.map((post: any) => (
+    <Post
+      key={post.id}
+      id={post.id}
+      message={post.message}
+      likesCount={post.likesCount}
+    />
+  ));
+
   return (
     <div className={style.posts}>
       <textarea className={style.textarea}></textarea>
       <button className={style.btn}>Add post</button>
-      <Post
-        message='you'
-        likesCount={10}
-      />
-      <Post
-        message='hi'
-        likesCount={10}
-      />
-      <Post
-        message='have are you?'
-        likesCount={1000}
-      />
+      {postsElements}
     </div>
   );
 };
