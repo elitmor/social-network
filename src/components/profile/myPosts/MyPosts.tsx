@@ -1,13 +1,8 @@
-import { PostType } from '../../../../types/types';
 import style from './myPosts.module.css';
 import { Post } from './post/Post';
 
-interface MyPostsProps {
-  posts: PostType[];
-}
-
-export const MyPosts = (props: MyPostsProps) => {
-  const postsElements = props.posts.map((post: any) => (
+export const MyPosts = (props: any) => {
+  const postsElements = props.posts.posts.map((post: any) => (
     <Post
       key={post.id}
       id={post.id}

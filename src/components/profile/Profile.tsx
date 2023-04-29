@@ -1,13 +1,8 @@
-import { PostType } from '../../../types/types';
 import { MyPosts } from './myPosts/MyPosts';
 import style from './profile.module.css';
 import { ProfileInfo } from './profileInfo/ProfileInfo';
 
-interface ProfileProps {
-  posts: PostType[];
-}
-
-export const Profile = (props: ProfileProps) => {
+export const Profile = (props: any) => {
   return (
     <div className={style.profile}>
       <ProfileInfo />

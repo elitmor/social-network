@@ -4,15 +4,8 @@ import { Header } from '../header/Header';
 import { Navbar } from '../navbar/Navbar';
 import { Profile } from '../profile/Profile';
 import './App.css';
-import { PostType, DialogType, MessageType } from '../../../types/types';
 
-interface AppProps {
-  posts: PostType[];
-  dialogs: DialogType[];
-  messages: MessageType[];
-}
-
-export const App = (props: AppProps) => {
+export const App = (props: any) => {
   return (
     <div className='wrapper'>
       <BrowserRouter>
@@ -22,18 +15,18 @@ export const App = (props: AppProps) => {
           <Routes>
             <Route
               path='/'
-              element={<Profile posts={props.posts} />}
+              element={<Profile posts={props.store.profilePage} />}
             />
             <Route
               path='/profile'
-              element={<Profile posts={props.posts} />}
+              element={<Profile posts={props.store.profilePage} />}
             />
             <Route
               path='dialogs/*'
               element={
                 <MyDialogs
-                  dialogs={props.dialogs}
-                  messages={props.messages}
+                  dialogs={props.store.dialogPage}
+                  messages={props.store.dialogPage}
                 />
               }
             />

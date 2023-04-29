@@ -1,15 +1,9 @@
-import { DialogType, MessageType } from '../../../types/types';
 import { Dialog } from './dialog/Dialog';
 import { Message } from './message/Message';
 import style from './myDialogs.module.css';
 
-interface MyDialogsProps {
-  dialogs: DialogType[];
-  messages: MessageType[];
-}
-
-export const MyDialogs = (props: MyDialogsProps) => {
-  const dialogsElements = props.dialogs.map((dialog: any) => (
+export const MyDialogs = (props: any) => {
+  const dialogsElements = props.dialogs.dialogs.map((dialog: any) => (
     <Dialog
       key={dialog.id}
       id={dialog.id}
@@ -17,7 +11,7 @@ export const MyDialogs = (props: MyDialogsProps) => {
     />
   ));
 
-  const messagesElements = props.messages.map((m: any) => (
+  const messagesElements = props.messages.messages.map((m: any) => (
     <Message
       key={m.id}
       id={m.id}
