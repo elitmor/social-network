@@ -15,11 +15,21 @@ export const App = (props: any) => {
           <Routes>
             <Route
               path='/'
-              element={<Profile posts={props.store.profilePage} />}
+              element={
+                <Profile
+                  posts={props.store.profilePage}
+                  addPost={props.addPost}
+                />
+              }
             />
             <Route
               path='/profile'
-              element={<Profile posts={props.store.profilePage} />}
+              element={
+                <Profile
+                  posts={props.store.profilePage}
+                  addPost={props.addPost}
+                />
+              }
             />
             <Route
               path='dialogs/*'

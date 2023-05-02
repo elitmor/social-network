@@ -1,15 +1,15 @@
 export type PostType = {
-  id: number;
+  id: string;
   message: string;
   likesCount: number;
 };
 
 export type DialogType = {
-  id: number;
+  id: string;
   name: string;
 };
 
 export type MessageType = {
-  id: number;
+  id: string;
   message: string;
 };

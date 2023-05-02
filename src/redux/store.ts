@@ -1,21 +1,32 @@
+import { v1 } from 'uuid';
+
 export const store = {
   profilePage: {
     posts: [
-      { id: 1, message: 'Hello', likesCount: 5 },
-      { id: 2, message: 'You', likesCount: 3 },
-      { id: 3, message: 'How are you?', likesCount: 7 },
+      { id: v1(), message: 'Hello', likesCount: 5 },
+      { id: v1(), message: 'You', likesCount: 3 },
+      { id: v1(), message: 'How are you?', likesCount: 7 },
     ],
   },
   dialogPage: {
     dialogs: [
-      { id: 1, name: 'Alex' },
-      { id: 2, name: 'Ksy' },
-      { id: 3, name: 'Liza' },
+      { id: v1(), name: 'Alex' },
+      { id: v1(), name: 'Ksy' },
+      { id: v1(), name: 'Liza' },
     ],
     messages: [
-      { id: 1, message: 'Hello' },
-      { id: 2, message: 'You' },
-      { id: 3, message: 'How are you?' },
+      { id: v1(), message: 'Hello' },
+      { id: v1(), message: 'You' },
+      { id: v1(), message: 'How are you?' },
     ],
   },
+};
+
+export const addPost = (postMessage: any) => {
+  const newPost = {
+    id: v1(),
+    message: postMessage,
+    likesCount: 0,
+  };
+  store.profilePage.posts.push(newPost);
 };
