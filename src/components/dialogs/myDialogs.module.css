@@ -5,3 +5,12 @@
 .items {
   margin-right: 5rem;
 }
+
+.textarea {
+  margin-bottom: 0.5rem;
+}
+
+.btn {
+  display: block;
+  margin-bottom: 0.5rem;
+}

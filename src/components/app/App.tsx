@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { MyDialogs } from '../dialogs/MyDialogs';
 import { Header } from '../header/Header';
 import { Navbar } from '../navbar/Navbar';
@@ -15,30 +15,15 @@ export const App = (props: any) => {
           <Routes>
             <Route
               path='/'
-              element={
-                <Profile
-                  posts={props.store.profilePage}
-                  addPost={props.addPost}
-                />
-              }
+              element={<Navigate to='/profile' />}
             />
             <Route
               path='/profile'
-              element={
-                <Profile
-                  posts={props.store.profilePage}
-                  addPost={props.addPost}
-                />
-              }
+              element={<Profile />}
             />
             <Route
               path='dialogs/*'
-              element={
-                <MyDialogs
-                  dialogs={props.store.dialogPage}
-                  messages={props.store.dialogPage}
-                />
-              }
+              element={<MyDialogs />}
             />
           </Routes>
         </main>

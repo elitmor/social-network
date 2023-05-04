@@ -6,10 +6,7 @@ export const Profile = (props: any) => {
   return (
     <div className={style.profile}>
       <ProfileInfo />
-      <MyPosts
-        posts={props.posts}
-        addPost={props.addPost}
-      />
+      <MyPosts />
     </div>
   );
 };

@@ -1,20 +1,29 @@
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  addPostActionCreator,
+  updateNewPostTextActionCreator,
+} from '../../../redux/profile-reducer';
 import style from './myPosts.module.css';
 import { Post } from './post/Post';
 
-export const MyPosts = (props: any) => {
+export const MyPosts = () => {
   const [valueTextarea, setValueTextarea] = useState('');
+  const dispatch = useDispatch();
+  const posts = useSelector((state: any) => state.profilePage.posts);
 
   const addPost = () => {
-    props.addPost(valueTextarea);
+    dispatch(addPostActionCreator());
     setValueTextarea('');
   };
 
-  const handleChangeTextarea = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setValueTextarea(e.target.value);
+  const handleChangeTextarea = (e: any) => {
+    const text = e.target.value;
+    setValueTextarea(text);
+    dispatch(updateNewPostTextActionCreator(text));
   };
 
-  const postsElements = props.posts.posts.map((post: any) => (
+  const postsElements = posts.map((post: any) => (
     <Post
       key={post.id}
       id={post.id}

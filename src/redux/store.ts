@@ -1,32 +1,12 @@
-import { v1 } from 'uuid';
+import { combineReducers, createStore } from 'redux';
+import { profileReducer } from './profile-reducer';
+import { dialogsReducer } from './dialogs-reducer';
 
-export const store = {
-  profilePage: {
-    posts: [
-      { id: v1(), message: 'Hello', likesCount: 5 },
-      { id: v1(), message: 'You', likesCount: 3 },
-      { id: v1(), message: 'How are you?', likesCount: 7 },
-    ],
-  },
-  dialogPage: {
-    dialogs: [
-      { id: v1(), name: 'Alex' },
-      { id: v1(), name: 'Ksy' },
-      { id: v1(), name: 'Liza' },
-    ],
-    messages: [
-      { id: v1(), message: 'Hello' },
-      { id: v1(), message: 'You' },
-      { id: v1(), message: 'How are you?' },
-    ],
-  },
-};
+const reducers = combineReducers({
+  profilePage: profileReducer,
+  dialogsPage: dialogsReducer,
+});
 
-export const addPost = (postMessage: any) => {
-  const newPost = {
-    id: v1(),
-    message: postMessage,
-    likesCount: 0,
-  };
-  store.profilePage.posts.push(newPost);
-};
+const store = createStore(reducers);
+
+export default store;
