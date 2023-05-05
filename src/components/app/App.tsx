@@ -4,6 +4,7 @@ import { Header } from '../header/Header';
 import { Navbar } from '../navbar/Navbar';
 import { Profile } from '../profile/Profile';
 import './App.css';
+import { Users } from '../users/Users';
 
 export const App = (props: any) => {
   return (
@@ -24,6 +25,10 @@ export const App = (props: any) => {
             <Route
               path='dialogs/*'
               element={<MyDialogs />}
+            />
+            <Route
+              path='users/'
+              element={<Users />}
             />
           </Routes>
         </main>
