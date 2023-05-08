@@ -1,16 +1,25 @@
 import axios from 'axios';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { followAС, setUsersAС, unfollowAС } from '../../redux/users-reducer';
-import style from './users.module.css';
 import avatar from '../../assets/avatar.svg';
+import {
+  followAС,
+  setCurrentPageAC,
+  setTotalUsersCountAC,
+  setUsersAС,
+  unfollowAС,
+} from '../../redux/users-reducer';
+import style from './users.module.css';
 
 export const Users = () => {
   useEffect(() => {
     axios
-      .get('https://social-network.samuraijs.com/api/1.0/users')
+      .get(
+        `https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${pageSize}`,
+      )
       .then((res) => {
         dispatch(setUsersAС(res.data.items));
+        dispatch(setTotalUsersCountAC(res.data.totalCount));
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -26,8 +35,44 @@ export const Users = () => {
     dispatch(unfollowAС(userId));
   };
 
+  const handleCurrentPage = (page: any) => {
+    dispatch(setCurrentPageAC(page));
+    axios
+      .get(
+        `https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${pageSize}`,
+      )
+      .then((res) => {
+        dispatch(setUsersAС(res.data.items));
+      });
+  };
+
+  const totalUsersCount = useSelector(
+    (state: any) => state.usersPage.totalUsersCount,
+  );
+  const pageSize = useSelector((state: any) => state.usersPage.pageSize);
+
+  const currentPage = useSelector((state: any) => state.usersPage.currentPage);
+
+  const pagesCount = Math.ceil(totalUsersCount / pageSize);
+
+  const pages = [];
+  for (let i = 1; i <= pagesCount; i++) {
+    pages.push(i);
+  }
+
   return (
     <div>
+      <div>
+        {pages.map((page) => (
+          <span
+            className={currentPage === page ? style.selected : ''}
+            key={page}
+            onClick={() => handleCurrentPage(page)}
+          >
+            {page}
+          </span>
+        ))}
+      </div>
       {users.map((user: any) => (
         <div key={user.id}>
           <div>
