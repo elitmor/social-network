@@ -7,17 +7,21 @@ import {
   setCurrentPageAC,
   setTotalUsersCountAC,
   setUsersAС,
+  toggleIsFetchingAC,
   unfollowAС,
 } from '../../redux/users-reducer';
+import { Preloader } from '../common/preloader/Preloader';
 import style from './users.module.css';
 
 export const Users = () => {
   useEffect(() => {
+    dispatch(toggleIsFetchingAC(true));
     axios
       .get(
         `https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${pageSize}`,
       )
       .then((res) => {
+        dispatch(toggleIsFetchingAC(false));
         dispatch(setUsersAС(res.data.items));
         dispatch(setTotalUsersCountAC(res.data.totalCount));
       });
@@ -25,6 +29,7 @@ export const Users = () => {
   }, []);
 
   const dispatch = useDispatch();
+  const isFetching = useSelector((state: any) => state.usersPage.isFetching);
   const users = useSelector((state: any) => state.usersPage.users);
 
   const handleFollowClick = (userId: any) => {
@@ -37,11 +42,13 @@ export const Users = () => {
 
   const handleCurrentPage = (page: any) => {
     dispatch(setCurrentPageAC(page));
+    dispatch(toggleIsFetchingAC(true));
     axios
       .get(
         `https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${pageSize}`,
       )
       .then((res) => {
+        dispatch(toggleIsFetchingAC(false));
         dispatch(setUsersAС(res.data.items));
       });
   };
@@ -62,6 +69,7 @@ export const Users = () => {
 
   return (
     <div>
+      {isFetching ? <Preloader /> : null}
       <div>
         {pages.map((page) => (
           <span
