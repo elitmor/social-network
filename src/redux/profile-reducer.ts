@@ -2,6 +2,7 @@ import { v1 } from 'uuid';
 
 const ADD_POST = 'ADD_POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT';
+const SET_USER_PROFILE = 'SET_USER_PROFILE';
 
 const initialState = {
   posts: [
@@ -10,10 +11,16 @@ const initialState = {
     { id: v1(), message: 'How are you?', likesCount: 7 },
   ],
   newPostText: '',
+  profile: null,
 };
 
 export const profileReducer = (state = initialState, action: any) => {
   switch (action.type) {
+    case SET_USER_PROFILE:
+      return {
+        ...state,
+        profile: action.profile,
+      };
     case ADD_POST:
       const newPost = {
         id: v1(),
@@ -35,9 +42,14 @@ export const profileReducer = (state = initialState, action: any) => {
   }
 };
 
-export const addPostActionCreator = () => ({ type: ADD_POST });
+export const setUserProfileAC = (profile: any) => ({
+  type: SET_USER_PROFILE,
+  profile,
+});
 
-export const updateNewPostTextActionCreator = (text: any) => ({
+export const addPostAC = () => ({ type: ADD_POST });
+
+export const updateNewPostTextAC = (text: any) => ({
   type: UPDATE_NEW_POST_TEXT,
   newText: text,
 });

@@ -19,7 +19,7 @@ export const App = (props: any) => {
               element={<Navigate to='/profile' />}
             />
             <Route
-              path='/profile'
+              path='/profile/*'
               element={<Profile />}
             />
             <Route

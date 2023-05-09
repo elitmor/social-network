@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 import avatar from '../../assets/avatar.svg';
 import {
   followAС,
@@ -84,11 +85,13 @@ export const Users = () => {
       {users.map((user: any) => (
         <div key={user.id}>
           <div>
-            <img
-              className={style.avatar}
-              src={user.photos.small ?? avatar}
-              alt='avatar'
-            />
+            <NavLink to={`/profile/${user.id}`}>
+              <img
+                className={style.avatar}
+                src={user.photos.small ?? avatar}
+                alt='avatar'
+              />
+            </NavLink>
             {user.followed === true ? (
               <button
                 className={style.btn}

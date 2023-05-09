@@ -1,9 +1,6 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  addPostActionCreator,
-  updateNewPostTextActionCreator,
-} from '../../../redux/profile-reducer';
+import { addPostAC, updateNewPostTextAC } from '../../../redux/profile-reducer';
 import style from './myPosts.module.css';
 import { Post } from './post/Post';
 
@@ -13,14 +10,14 @@ export const MyPosts = () => {
   const posts = useSelector((state: any) => state.profilePage.posts);
 
   const addPost = () => {
-    dispatch(addPostActionCreator());
+    dispatch(addPostAC());
     setValueTextarea('');
   };
 
   const handleChangeTextarea = (e: any) => {
     const text = e.target.value;
     setValueTextarea(text);
-    dispatch(updateNewPostTextActionCreator(text));
+    dispatch(updateNewPostTextAC(text));
   };
 
   const postsElements = posts.map((post: any) => (
