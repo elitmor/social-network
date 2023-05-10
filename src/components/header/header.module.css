@@ -1,8 +1,15 @@
 .header {
   grid-area: header;
   background-color: #20232a;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .header__logo {
   width: 50px;
   display: inline-block;
+}
+
+.login {
+  margin-right: 1rem;
 }
