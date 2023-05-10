@@ -15,11 +15,21 @@ import { Preloader } from '../common/preloader/Preloader';
 import style from './users.module.css';
 
 export const Users = () => {
+  const dispatch = useDispatch();
+  const isFetching = useSelector((state: any) => state.usersPage.isFetching);
+  const users = useSelector((state: any) => state.usersPage.users);
+  const totalUsersCount = useSelector(
+    (state: any) => state.usersPage.totalUsersCount,
+  );
+  const pageSize = useSelector((state: any) => state.usersPage.pageSize);
+  const currentPage = useSelector((state: any) => state.usersPage.currentPage);
+
   useEffect(() => {
     dispatch(toggleIsFetchingAC(true));
     axios
       .get(
         `https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${pageSize}`,
+        { withCredentials: true },
       )
       .then((res) => {
         dispatch(toggleIsFetchingAC(false));
@@ -29,37 +39,19 @@ export const Users = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const dispatch = useDispatch();
-  const isFetching = useSelector((state: any) => state.usersPage.isFetching);
-  const users = useSelector((state: any) => state.usersPage.users);
-
-  const handleFollowClick = (userId: any) => {
-    dispatch(followAС(userId));
-  };
-
-  const handleUnfollowClick = (userId: any) => {
-    dispatch(unfollowAС(userId));
-  };
-
   const handleCurrentPage = (page: any) => {
     dispatch(setCurrentPageAC(page));
     dispatch(toggleIsFetchingAC(true));
     axios
       .get(
         `https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${pageSize}`,
+        { withCredentials: true },
       )
       .then((res) => {
         dispatch(toggleIsFetchingAC(false));
         dispatch(setUsersAС(res.data.items));
       });
   };
-
-  const totalUsersCount = useSelector(
-    (state: any) => state.usersPage.totalUsersCount,
-  );
-  const pageSize = useSelector((state: any) => state.usersPage.pageSize);
-
-  const currentPage = useSelector((state: any) => state.usersPage.currentPage);
 
   const pagesCount = Math.ceil(totalUsersCount / pageSize);
 
@@ -95,14 +87,47 @@ export const Users = () => {
             {user.followed === true ? (
               <button
                 className={style.btn}
-                onClick={() => handleUnfollowClick(user.id)}
+                onClick={() => {
+                  axios
+                    .delete(
+                      `https://social-network.samuraijs.com/api/1.0/follow/${user.id}`,
+                      {
+                        withCredentials: true,
+                        headers: {
+                          'API-KEY': '61be3eef-56b5-439b-bddf-698a9c9e3f2f',
+                        },
+                      },
+                    )
+                    .then((res) => {
+                      if (res.data.resultCode === 0) {
+                        dispatch(unfollowAС(user.id));
+                      }
+                    });
+                }}
               >
-                Unfollow
+                UnFollow
               </button>
             ) : (
               <button
                 className={style.btn}
-                onClick={() => handleFollowClick(user.id)}
+                onClick={() => {
+                  axios
+                    .post(
+                      `https://social-network.samuraijs.com/api/1.0/follow/${user.id}`,
+                      {},
+                      {
+                        withCredentials: true,
+                        headers: {
+                          'API-KEY': '61be3eef-56b5-439b-bddf-698a9c9e3f2f',
+                        },
+                      },
+                    )
+                    .then((res) => {
+                      if (res.data.resultCode === 0) {
+                        dispatch(followAС(user.id));
+                      }
+                    });
+                }}
               >
                 Follow
               </button>
