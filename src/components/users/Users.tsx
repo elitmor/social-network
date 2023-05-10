@@ -2,18 +2,19 @@ import axios from 'axios';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import { usersAPI } from '../../api/api';
 import avatar from '../../assets/avatar.svg';
 import {
   followAС,
   setCurrentPageAC,
   setTotalUsersCountAC,
   setUsersAС,
+  toggleFollowingProgressAC,
   toggleIsFetchingAC,
   unfollowAС,
 } from '../../redux/users-reducer';
 import { Preloader } from '../common/preloader/Preloader';
 import style from './users.module.css';
-import { usersAPI } from '../../api/api';
 
 export const Users = () => {
   const dispatch = useDispatch();
@@ -24,6 +25,9 @@ export const Users = () => {
   );
   const pageSize = useSelector((state: any) => state.usersPage.pageSize);
   const currentPage = useSelector((state: any) => state.usersPage.currentPage);
+  const followingProgress = useSelector(
+    (state: any) => state.usersPage.followingProgress,
+  );
 
   useEffect(() => {
     dispatch(toggleIsFetchingAC(true));
@@ -78,7 +82,9 @@ export const Users = () => {
             {user.followed === true ? (
               <button
                 className={style.btn}
+                disabled={followingProgress.some((id: any) => id === user.id)}
                 onClick={() => {
+                  dispatch(toggleFollowingProgressAC(true, user.id));
                   axios
                     .delete(
                       `https://social-network.samuraijs.com/api/1.0/follow/${user.id}`,
@@ -93,6 +99,7 @@ export const Users = () => {
                       if (res.data.resultCode === 0) {
                         dispatch(unfollowAС(user.id));
                       }
+                      dispatch(toggleFollowingProgressAC(false, user.id));
                     });
                 }}
               >
@@ -101,7 +108,9 @@ export const Users = () => {
             ) : (
               <button
                 className={style.btn}
+                disabled={followingProgress.some((id: any) => id === user.id)}
                 onClick={() => {
+                  dispatch(toggleFollowingProgressAC(true, user.id));
                   axios
                     .post(
                       `https://social-network.samuraijs.com/api/1.0/follow/${user.id}`,
@@ -117,6 +126,7 @@ export const Users = () => {
                       if (res.data.resultCode === 0) {
                         dispatch(followAС(user.id));
                       }
+                      dispatch(toggleFollowingProgressAC(false, user.id));
                     });
                 }}
               >
