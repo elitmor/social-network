@@ -13,6 +13,7 @@ import {
 } from '../../redux/users-reducer';
 import { Preloader } from '../common/preloader/Preloader';
 import style from './users.module.css';
+import { usersAPI } from '../../api/api';
 
 export const Users = () => {
   const dispatch = useDispatch();
@@ -26,31 +27,21 @@ export const Users = () => {
 
   useEffect(() => {
     dispatch(toggleIsFetchingAC(true));
-    axios
-      .get(
-        `https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${pageSize}`,
-        { withCredentials: true },
-      )
-      .then((res) => {
-        dispatch(toggleIsFetchingAC(false));
-        dispatch(setUsersAС(res.data.items));
-        dispatch(setTotalUsersCountAC(res.data.totalCount));
-      });
+    usersAPI.getUsers(currentPage, pageSize).then((data) => {
+      dispatch(toggleIsFetchingAC(false));
+      dispatch(setUsersAС(data.items));
+      dispatch(setTotalUsersCountAC(data.totalCount));
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleCurrentPage = (page: any) => {
     dispatch(setCurrentPageAC(page));
     dispatch(toggleIsFetchingAC(true));
-    axios
-      .get(
-        `https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${pageSize}`,
-        { withCredentials: true },
-      )
-      .then((res) => {
-        dispatch(toggleIsFetchingAC(false));
-        dispatch(setUsersAС(res.data.items));
-      });
+    usersAPI.getUsers(currentPage, pageSize).then((data) => {
+      dispatch(toggleIsFetchingAC(false));
+      dispatch(setUsersAС(data.items));
+    });
   };
 
   const pagesCount = Math.ceil(totalUsersCount / pageSize);
