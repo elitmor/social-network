@@ -1,4 +1,5 @@
 import { v1 } from 'uuid';
+import { profileAPI } from '../api/api';
 
 const ADD_POST = 'ADD_POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT';
@@ -53,3 +54,11 @@ export const updateNewPostTextAC = (text: any) => ({
   type: UPDATE_NEW_POST_TEXT,
   newText: text,
 });
+
+export const getUserProfile = (userId: any) => {
+  return (dispatch: any) => {
+    profileAPI.getProfile(userId).then((res) => {
+      dispatch(setUserProfileAC(res.data));
+    });
+  };
+};
