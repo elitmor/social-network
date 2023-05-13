@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Navigate } from 'react-router-dom';
 import {
   addMessageActionCreator,
   updateNewMessageTextActionCreator,
@@ -12,6 +13,7 @@ export const MyDialogs = (props: any) => {
   const [valueTextarea, setValueTextarea] = useState('');
   const dispatch = useDispatch();
   const messages = useSelector((state: any) => state.dialogsPage.messages);
+  const isAuth = useSelector((state: any) => state.auth.isAuth);
 
   const addMessage = () => {
     dispatch(addMessageActionCreator());
@@ -40,7 +42,7 @@ export const MyDialogs = (props: any) => {
     />
   ));
 
-  return (
+  return isAuth ? (
     <div className={style.dialogs}>
       <div className={style.items}>{dialogsElements}</div>
       <div className={style.messages}>{messagesElements}</div>
@@ -58,5 +60,7 @@ export const MyDialogs = (props: any) => {
         </button>
       </div>
     </div>
+  ) : (
+    <Navigate to='/login' />
   );
 };

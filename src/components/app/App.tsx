@@ -1,10 +1,11 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { MyDialogs } from '../dialogs/MyDialogs';
 import { Header } from '../header/Header';
+import { Login } from '../login/Login';
 import { Navbar } from '../navbar/Navbar';
 import { Profile } from '../profile/Profile';
-import './App.css';
 import { Users } from '../users/Users';
+import './App.css';
 
 export const App = (props: any) => {
   return (
@@ -29,6 +30,10 @@ export const App = (props: any) => {
             <Route
               path='users/'
               element={<Users />}
+            />
+            <Route
+              path='login/'
+              element={<Login />}
             />
           </Routes>
         </main>
