@@ -12,7 +12,7 @@ export const Header = () => {
   const isAuth = useSelector((state) => state.auth.isAuth);
 
   useEffect(() => {
-    dispatch(getAuthUserData);
+    dispatch(getAuthUserData());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
