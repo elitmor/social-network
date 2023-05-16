@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Navigate, useParams } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import { getUserProfile } from '../../redux/profile-reducer';
 import { MyPosts } from './myPosts/MyPosts';
 import style from './profile.module.css';
@@ -9,7 +9,6 @@ import { ProfileInfo } from './profileInfo/ProfileInfo';
 export const Profile = () => {
   const dispatch = useDispatch();
   let { userId } = useParams();
-  const isAuth = useSelector((state) => state.auth.isAuth);
 
   useEffect(() => {
     if (!userId) {
@@ -20,12 +19,10 @@ export const Profile = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return isAuth ? (
+  return (
     <div className={style.profile}>
       <ProfileInfo />
       <MyPosts />
     </div>
-  ) : (
-    <Navigate to='/login' />
   );
 };

@@ -16,10 +16,6 @@ export const App = (props: any) => {
         <main className='main'>
           <Routes>
             <Route
-              path='/'
-              element={<Navigate to='/profile' />}
-            />
-            <Route
               path='/profile/:userId?'
               element={<Profile />}
             />
@@ -34,6 +30,10 @@ export const App = (props: any) => {
             <Route
               path='login/'
               element={<Login />}
+            />
+            <Route
+              path='/'
+              element={<Navigate to='/profile' />}
             />
           </Routes>
         </main>
