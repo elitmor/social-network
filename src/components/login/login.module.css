@@ -3,3 +3,16 @@
   flex-direction: column;
   max-width: 300px;
 }
+
+.errorInput {
+  border: 1px solid red;
+}
+
+.errorMessage {
+  color: red;
+}
+
+.errorMessage::before {
+  display: inline;
+  content: '⚠ ';
+}
