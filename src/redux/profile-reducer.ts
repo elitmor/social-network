@@ -2,7 +2,6 @@ import { v1 } from 'uuid';
 import { profileAPI } from '../api/api';
 
 const ADD_POST = 'ADD_POST';
-const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const SET_STATUS = 'SET_STATUS';
 
@@ -12,7 +11,6 @@ const initialState = {
     { id: v1(), message: 'You', likesCount: 3 },
     { id: v1(), message: 'How are you?', likesCount: 7 },
   ],
-  newPostText: '',
   profile: null,
   status: '',
 };
@@ -27,18 +25,12 @@ export const profileReducer = (state = initialState, action: any) => {
     case ADD_POST:
       const newPost = {
         id: v1(),
-        message: state.newPostText,
+        message: action.newText,
         likesCount: 0,
       };
       return {
         ...state,
         posts: [...state.posts, newPost],
-        newPostText: '',
-      };
-    case UPDATE_NEW_POST_TEXT:
-      return {
-        ...state,
-        newPostText: action.newText,
       };
     case SET_STATUS:
       return {
@@ -55,12 +47,7 @@ export const setUserProfileAC = (profile: any) => ({
   profile,
 });
 
-export const addPostAC = () => ({ type: ADD_POST });
-
-export const updateNewPostTextAC = (text: any) => ({
-  type: UPDATE_NEW_POST_TEXT,
-  newText: text,
-});
+export const addPostAC = (newText: any) => ({ type: ADD_POST, newText });
 
 export const getUserProfile = (userId: any) => {
   return (dispatch: any) => {

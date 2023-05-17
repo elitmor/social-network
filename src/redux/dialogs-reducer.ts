@@ -1,7 +1,6 @@
 import { v1 } from 'uuid';
 
 const ADD_MESSAGE = 'ADD_MESSAGE';
-const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE_NEW_MESSAGE_TEXT';
 
 const initialState = {
   messages: [
@@ -9,7 +8,6 @@ const initialState = {
     { id: v1(), name: 'Ksy', message: 'You' },
     { id: v1(), name: 'Liza', message: 'How are you?' },
   ],
-  newMessageText: '',
 };
 
 export const dialogsReducer = (state = initialState, action: any) => {
@@ -17,26 +15,18 @@ export const dialogsReducer = (state = initialState, action: any) => {
     case ADD_MESSAGE:
       const newMessage = {
         id: v1(),
-        message: state.newMessageText,
+        message: action.newText,
       };
       return {
         ...state,
         messages: [...state.messages, newMessage],
-        newMessageText: '',
-      };
-    case UPDATE_NEW_MESSAGE_TEXT:
-      return {
-        ...state,
-        newMessageText: action.newText,
       };
     default:
       return state;
   }
 };
 
-export const addMessageActionCreator = () => ({ type: ADD_MESSAGE });
-
-export const updateNewMessageTextActionCreator = (text: any) => ({
-  type: UPDATE_NEW_MESSAGE_TEXT,
-  newText: text,
+export const addMessageActionCreator = (newText: any) => ({
+  type: ADD_MESSAGE,
+  newText,
 });

@@ -1,29 +1,21 @@
-import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
-import {
-  addMessageActionCreator,
-  updateNewMessageTextActionCreator,
-} from '../../redux/dialogs-reducer';
+import { addMessageActionCreator } from '../../redux/dialogs-reducer';
 import { Dialog } from './dialog/Dialog';
 import { Message } from './message/Message';
 import style from './myDialogs.module.css';
 
 export const MyDialogs = (props: any) => {
-  const [valueTextarea, setValueTextarea] = useState('');
   const dispatch = useDispatch();
   const messages = useSelector((state: any) => state.dialogsPage.messages);
   const isAuth = useSelector((state: any) => state.auth.isAuth);
 
-  const addMessage = () => {
-    dispatch(addMessageActionCreator());
-    setValueTextarea('');
-  };
+  const { register, handleSubmit, reset } = useForm();
 
-  const handleChangeTextarea = (e: any) => {
-    const text = e.target.value;
-    setValueTextarea(text);
-    dispatch(updateNewMessageTextActionCreator(text));
+  const onSubmit = (data: any) => {
+    dispatch(addMessageActionCreator(data.textarea));
+    reset();
   };
 
   const dialogsElements = messages.map((dialog: any) => (
@@ -46,19 +38,19 @@ export const MyDialogs = (props: any) => {
     <div className={style.dialogs}>
       <div className={style.items}>{dialogsElements}</div>
       <div className={style.messages}>{messagesElements}</div>
-      <div>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <textarea
           className={style.textarea}
-          value={valueTextarea}
-          onChange={handleChangeTextarea}
+          placeholder='Enter your message'
+          {...register('textarea')}
         ></textarea>
         <button
           className={style.btn}
-          onClick={addMessage}
+          type={'submit'}
         >
           Add post
         </button>
-      </div>
+      </form>
     </div>
   ) : (
     <Navigate to='/login' />

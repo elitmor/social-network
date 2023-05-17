@@ -1,23 +1,18 @@
-import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { addPostAC, updateNewPostTextAC } from '../../../redux/profile-reducer';
+import { addPostAC } from '../../../redux/profile-reducer';
 import style from './myPosts.module.css';
 import { Post } from './post/Post';
 
 export const MyPosts = () => {
-  const [valueTextarea, setValueTextarea] = useState('');
   const dispatch = useDispatch();
   const posts = useSelector((state: any) => state.profilePage.posts);
 
-  const addPost = () => {
-    dispatch(addPostAC());
-    setValueTextarea('');
-  };
+  const { register, handleSubmit, reset } = useForm();
 
-  const handleChangeTextarea = (e: any) => {
-    const text = e.target.value;
-    setValueTextarea(text);
-    dispatch(updateNewPostTextAC(text));
+  const onSubmit = (data: any) => {
+    dispatch(addPostAC(data.textarea));
+    reset();
   };
 
   const postsElements = posts.map((post: any) => (
@@ -31,17 +26,19 @@ export const MyPosts = () => {
 
   return (
     <div className={style.posts}>
-      <textarea
-        className={style.textarea}
-        value={valueTextarea}
-        onChange={handleChangeTextarea}
-      ></textarea>
-      <button
-        className={style.btn}
-        onClick={addPost}
-      >
-        Add post
-      </button>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <textarea
+          className={style.textarea}
+          placeholder='Enter your message'
+          {...register('textarea')}
+        ></textarea>
+        <button
+          className={style.btn}
+          type='submit'
+        >
+          Add post
+        </button>
+      </form>
       {postsElements}
     </div>
   );
