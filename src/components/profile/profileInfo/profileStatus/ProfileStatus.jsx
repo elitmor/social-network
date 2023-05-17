@@ -13,18 +13,21 @@ export const ProfileStatus = (props) => {
 
   const deactivateEditMode = () => {
     setEditMode(false);
+    if (status !== props.status) {
+      dispatch(updateStatus(status));
+    }
   };
 
   const onStatusChange = (e) => {
     setStatus(e.target.value);
-    dispatch(updateStatus(e.target.value));
   };
 
   useEffect(() => {
     if (props.status !== status) {
       setStatus(props.status);
     }
-  }, [props.status, status]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.status]);
 
   return (
     <div>

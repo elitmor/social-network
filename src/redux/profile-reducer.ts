@@ -60,14 +60,14 @@ export const getUserProfile = (userId: any) => {
 export const setStatus = (status: any) => ({ type: SET_STATUS, status });
 
 export const getStatus = (userId: any) => (dispatch: any) => {
-  profileAPI.getStatus(userId).then((response) => {
-    dispatch(setStatus(response.data));
+  profileAPI.getStatus(userId).then((res) => {
+    dispatch(setStatus(res.data));
   });
 };
 
 export const updateStatus = (status: any) => (dispatch: any) => {
-  profileAPI.updateStatus(status).then((response) => {
-    if (response.data.resultCode === 0) {
+  profileAPI.updateStatus(status).then((res) => {
+    if (res.data.resultCode === 0) {
       dispatch(setStatus(status));
     }
   });
