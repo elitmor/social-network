@@ -19,6 +19,7 @@ export const Login = () => {
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
@@ -26,7 +27,7 @@ export const Login = () => {
 
   const onSubmit = (data) => {
     console.log(data);
-    dispatch(login(data.email, data.password, data.rememberMe));
+    dispatch(login(data.email, data.password, data.rememberMe, setError));
   };
 
   if (isAuth) {

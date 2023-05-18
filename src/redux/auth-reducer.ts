@@ -43,11 +43,25 @@ export const getAuthUserData = () => {
   };
 };
 
-export const login = (email: any, password: any, rememberMe: any) => {
+export const login = (
+  email: any,
+  password: any,
+  rememberMe: any,
+  setError: any,
+) => {
   return (dispatch: any) => {
     authAPI.login(email, password, rememberMe).then((res) => {
       if (res.data.resultCode === 0) {
         dispatch(getAuthUserData());
+      } else {
+        const errorMessage =
+          res.data.messages.length > 0
+            ? res.data.messages[0]
+            : 'Invalid email or password';
+        setError('password', {
+          type: 'manual',
+          message: errorMessage,
+        });
       }
     });
   };
