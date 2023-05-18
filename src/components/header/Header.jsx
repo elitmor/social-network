@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import logo from '../../assets/logo.svg';
-import { getAuthUserData } from '../../redux/auth-reducer';
+import { getAuthUserData, logout } from '../../redux/auth-reducer';
 import style from './header.module.css';
 
 export const Header = () => {
@@ -23,7 +23,14 @@ export const Header = () => {
         alt='logo'
       />
       <div className={style.login}>
-        <NavLink to='/login'>{isAuth ? login : 'Login'}</NavLink>
+        {isAuth ? (
+          <>
+            <span>{login}</span>
+            <button onClick={() => dispatch(logout())}>Logout</button>
+          </>
+        ) : (
+          <NavLink to='/login'>Login</NavLink>
+        )}
       </div>
     </header>
   );
