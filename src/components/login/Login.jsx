@@ -26,7 +26,6 @@ export const Login = () => {
   });
 
   const onSubmit = (data) => {
-    console.log(data);
     dispatch(login(data.email, data.password, data.rememberMe, setError));
   };
 

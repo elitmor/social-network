@@ -1,8 +1,7 @@
-import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import logo from '../../assets/logo.svg';
-import { getAuthUserData, logout } from '../../redux/auth-reducer';
+import { logout } from '../../redux/auth-reducer';
 import style from './header.module.css';
 
 export const Header = () => {
@@ -11,10 +10,6 @@ export const Header = () => {
   const login = useSelector((state) => state.auth.login);
   const isAuth = useSelector((state) => state.auth.isAuth);
 
-  useEffect(() => {
-    dispatch(getAuthUserData());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
   return (
     <header className={style.header}>
       <img
