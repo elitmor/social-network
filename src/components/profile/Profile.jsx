@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getUserProfile } from '../../redux/profile-reducer';
 import { MyPosts } from './myPosts/MyPosts';
@@ -8,16 +8,15 @@ import { ProfileInfo } from './profileInfo/ProfileInfo';
 
 export const Profile = () => {
   const dispatch = useDispatch();
-  let { userId } = useParams();
+  const { userId } = useParams();
+  const authorizedUserId = useSelector((state) => state.auth.userId);
 
   useEffect(() => {
-    if (!userId) {
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      userId = '20178';
+    const profileUserId = userId || authorizedUserId;
+    if (profileUserId) {
+      dispatch(getUserProfile(profileUserId));
     }
-    dispatch(getUserProfile(userId));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [userId, authorizedUserId, dispatch]);
 
   return (
     <div className={style.profile}>
