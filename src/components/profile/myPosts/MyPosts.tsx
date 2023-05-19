@@ -1,12 +1,13 @@
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { addPostAC } from '../../../redux/profile-reducer';
+import { getPost } from '../../../redux/profile-selectors';
 import style from './myPosts.module.css';
 import { Post } from './post/Post';
 
 export const MyPosts = () => {
   const dispatch = useDispatch();
-  const posts = useSelector((state: any) => state.profilePage.posts);
+  const posts = useSelector(getPost);
 
   const { register, handleSubmit, reset } = useForm();
 

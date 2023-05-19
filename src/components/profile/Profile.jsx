@@ -5,12 +5,13 @@ import { getUserProfile } from '../../redux/profile-reducer';
 import { MyPosts } from './myPosts/MyPosts';
 import style from './profile.module.css';
 import { ProfileInfo } from './profileInfo/ProfileInfo';
+import { getUserId } from '../../redux/auth-selectors';
 
 export const Profile = () => {
   const dispatch = useDispatch();
   const { userId } = useParams();
   const navigate = useNavigate();
-  const authorizedUserId = useSelector((state) => state.auth.userId);
+  const authorizedUserId = useSelector(getUserId);
 
   const redirectToLogin = useCallback(() => {
     navigate('/login');

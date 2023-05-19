@@ -5,6 +5,7 @@ import style from './login.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../../redux/auth-reducer';
 import { Navigate } from 'react-router-dom';
+import { getIsAuth } from '../../redux/auth-selectors';
 
 const schema = yup.object().shape({
   email: yup.string().required('Email is required'),
@@ -14,7 +15,7 @@ const schema = yup.object().shape({
 
 export const Login = () => {
   const dispatch = useDispatch();
-  const isAuth = useSelector((state) => state.auth.isAuth);
+  const isAuth = useSelector(getIsAuth);
 
   const {
     register,

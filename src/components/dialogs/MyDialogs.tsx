@@ -5,11 +5,13 @@ import { addMessageActionCreator } from '../../redux/dialogs-reducer';
 import { Dialog } from './dialog/Dialog';
 import { Message } from './message/Message';
 import style from './myDialogs.module.css';
+import { getMessages } from '../../redux/dialogs-selectors';
+import { getIsAuth } from '../../redux/auth-selectors';
 
 export const MyDialogs = (props: any) => {
   const dispatch = useDispatch();
-  const messages = useSelector((state: any) => state.dialogsPage.messages);
-  const isAuth = useSelector((state: any) => state.auth.isAuth);
+  const messages = useSelector(getMessages);
+  const isAuth = useSelector(getIsAuth);
 
   const { register, handleSubmit, reset } = useForm();
 

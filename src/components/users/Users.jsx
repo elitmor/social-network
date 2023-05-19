@@ -4,21 +4,25 @@ import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import avatar from '../../assets/avatar.svg';
 import { fetchUsers, follow, unfollow } from '../../redux/users-reducer';
+import {
+  getCurrentPage,
+  getFollowingProgress,
+  getIsFetching,
+  getPageSize,
+  getTotalUsersCount,
+  getUsers,
+} from '../../redux/users-selectors';
 import { Preloader } from '../common/preloader/Preloader';
 import style from './users.module.css';
 
 export const Users = () => {
   const dispatch = useDispatch();
-  const isFetching = useSelector((state) => state.usersPage.isFetching);
-  const users = useSelector((state) => state.usersPage.users);
-  const totalUsersCount = useSelector(
-    (state) => state.usersPage.totalUsersCount,
-  );
-  const pageSize = useSelector((state) => state.usersPage.pageSize);
-  const currentPage = useSelector((state) => state.usersPage.currentPage);
-  const followingProgress = useSelector(
-    (state) => state.usersPage.followingProgress,
-  );
+  const isFetching = useSelector(getIsFetching);
+  const users = useSelector(getUsers);
+  const totalUsersCount = useSelector(getTotalUsersCount);
+  const pageSize = useSelector(getPageSize);
+  const currentPage = useSelector(getCurrentPage);
+  const followingProgress = useSelector(getFollowingProgress);
 
   useEffect(() => {
     dispatch(fetchUsers(currentPage, pageSize));

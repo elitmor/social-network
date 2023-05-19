@@ -2,11 +2,12 @@ import { useSelector } from 'react-redux';
 import { Preloader } from '../../common/preloader/Preloader';
 import style from './profileInfo.module.css';
 import { ProfileStatus } from './profileStatus/ProfileStatus';
+import { getUserProfile } from '../../../redux/profile-selectors';
+import { getUserId } from '../../../redux/auth-selectors';
 
 export const ProfileInfo = () => {
-  const userProfile = useSelector((state) => state.profilePage.profile);
-
-  const currentUserId = useSelector((state) => state.auth.userId);
+  const userProfile = useSelector(getUserProfile);
+  const currentUserId = useSelector(getUserId);
 
   if (!userProfile) {
     return <Preloader />;

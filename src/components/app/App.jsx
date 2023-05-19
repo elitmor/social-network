@@ -10,10 +10,11 @@ import { Navbar } from '../navbar/Navbar';
 import { Profile } from '../profile/Profile';
 import { Users } from '../users/Users';
 import './App.css';
+import { getInitialized } from '../../redux/app-selectors';
 
 export const App = (props) => {
   const dispatch = useDispatch();
-  const initialized = useSelector((state) => state.app.initialized);
+  const initialized = useSelector(getInitialized);
 
   useEffect(() => {
     dispatch(initializeApp());

@@ -3,12 +3,13 @@ import { NavLink } from 'react-router-dom';
 import logo from '../../assets/logo.svg';
 import { logout } from '../../redux/auth-reducer';
 import style from './header.module.css';
+import { getIsAuth, getLogin } from '../../redux/auth-selectors';
 
 export const Header = () => {
   const dispatch = useDispatch();
 
-  const login = useSelector((state) => state.auth.login);
-  const isAuth = useSelector((state) => state.auth.isAuth);
+  const login = useSelector(getLogin);
+  const isAuth = useSelector(getIsAuth);
 
   return (
     <header className={style.header}>
