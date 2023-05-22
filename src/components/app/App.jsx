@@ -1,5 +1,5 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector, Provider } from 'react-redux';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { initializeApp } from '../../redux/app-reducer';
 import { Preloader } from '../common/preloader/Preloader';
@@ -11,8 +11,9 @@ import { Profile } from '../profile/Profile';
 import { Users } from '../users/Users';
 import './App.css';
 import { getInitialized } from '../../redux/app-selectors';
+import store from '../../redux/store'; // Assuming you have a configured Redux store
 
-export const App = (props) => {
+const App = () => {
   const dispatch = useDispatch();
   const initialized = useSelector(getInitialized);
 
@@ -58,3 +59,11 @@ export const App = (props) => {
     </div>
   );
 };
+
+const AppWrapper = () => (
+  <Provider store={store}>
+    <App />
+  </Provider>
+);
+
+export default AppWrapper;
