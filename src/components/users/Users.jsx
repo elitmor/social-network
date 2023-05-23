@@ -1,7 +1,5 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
-import avatar from '../../assets/avatar.svg';
 import { fetchUsers, follow, unfollow } from '../../redux/users-reducer';
 import {
   getCurrentPage,
@@ -13,7 +11,7 @@ import {
 } from '../../redux/users-selectors';
 import { Paginator } from '../common/paginator/Paginator';
 import { Preloader } from '../common/preloader/Preloader';
-import style from './users.module.css';
+import { User } from './User';
 
 export const Users = () => {
   const dispatch = useDispatch();
@@ -44,42 +42,13 @@ export const Users = () => {
         handlePageClick={handlePageClick}
       />
       {users.map((user) => (
-        <div key={user.id}>
-          <div>
-            <NavLink to={`/profile/${user.id}`}>
-              <img
-                className={style.avatar}
-                src={user.photos.small ?? avatar}
-                alt='avatar'
-              />
-            </NavLink>
-            {user.followed === true ? (
-              <button
-                className={style.btn}
-                disabled={followingProgress.some((id) => id === user.id)}
-                onClick={() => {
-                  dispatch(unfollow(user.id));
-                }}
-              >
-                UnFollow
-              </button>
-            ) : (
-              <button
-                className={style.btn}
-                disabled={followingProgress.some((id) => id === user.id)}
-                onClick={() => {
-                  dispatch(follow(user.id));
-                }}
-              >
-                Follow
-              </button>
-            )}
-          </div>
-          <div>
-            <div>{user.name}</div>
-            <div>{user.status}</div>
-          </div>
-        </div>
+        <User
+          key={user.id}
+          user={user}
+          followingProgress={followingProgress}
+          unfollowUser={unfollow}
+          followUser={follow}
+        />
       ))}
     </div>
   );
