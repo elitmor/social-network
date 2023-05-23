@@ -1,7 +1,9 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector, Provider } from 'react-redux';
+import { useEffect } from 'react';
+import { Provider, useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { initializeApp } from '../../redux/app-reducer';
+import { getInitialized } from '../../redux/app-selectors';
+import store from '../../redux/store'; // Assuming you have a configured Redux store
 import { Preloader } from '../common/preloader/Preloader';
 import { MyDialogs } from '../dialogs/MyDialogs';
 import { Header } from '../header/Header';
@@ -10,8 +12,6 @@ import { Navbar } from '../navbar/Navbar';
 import { Profile } from '../profile/Profile';
 import { Users } from '../users/Users';
 import './App.css';
-import { getInitialized } from '../../redux/app-selectors';
-import store from '../../redux/store'; // Assuming you have a configured Redux store
 
 const App = () => {
   const dispatch = useDispatch();

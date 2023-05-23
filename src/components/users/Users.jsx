@@ -1,4 +1,3 @@
-// import axios from 'axios';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
@@ -12,6 +11,7 @@ import {
   getTotalUsersCount,
   getUsers,
 } from '../../redux/users-selectors';
+import { Paginator } from '../common/paginator/Paginator';
 import { Preloader } from '../common/preloader/Preloader';
 import style from './users.module.css';
 
@@ -29,31 +29,20 @@ export const Users = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleCurrentPage = (page) => {
+  const handlePageClick = (page) => {
     dispatch(fetchUsers(page, pageSize));
   };
 
   const pagesCount = Math.ceil(totalUsersCount / pageSize);
 
-  const pages = [];
-  for (let i = 1; i <= pagesCount; i++) {
-    pages.push(i);
-  }
-
   return (
     <div>
       {isFetching ? <Preloader /> : null}
-      <div>
-        {pages.map((page) => (
-          <span
-            className={currentPage === page ? style.selected : ''}
-            key={page}
-            onClick={() => handleCurrentPage(page)}
-          >
-            {page}
-          </span>
-        ))}
-      </div>
+      <Paginator
+        currentPage={currentPage}
+        pagesCount={pagesCount}
+        handlePageClick={handlePageClick}
+      />
       {users.map((user) => (
         <div key={user.id}>
           <div>
