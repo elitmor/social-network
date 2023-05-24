@@ -1,14 +1,14 @@
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
+import { getIsAuth } from '../../redux/auth-selectors';
 import { addMessageActionCreator } from '../../redux/dialogs-reducer';
+import { getMessages } from '../../redux/dialogs-selectors';
 import { Dialog } from './dialog/Dialog';
 import { Message } from './message/Message';
 import style from './myDialogs.module.css';
-import { getMessages } from '../../redux/dialogs-selectors';
-import { getIsAuth } from '../../redux/auth-selectors';
 
-export const MyDialogs = (props: any) => {
+const MyDialogs = (props: any) => {
   const dispatch = useDispatch();
   const messages = useSelector(getMessages);
   const isAuth = useSelector(getIsAuth);
@@ -58,3 +58,5 @@ export const MyDialogs = (props: any) => {
     <Navigate to='/login' />
   );
 };
+
+export default MyDialogs;

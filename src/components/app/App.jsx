@@ -1,17 +1,18 @@
-import { useEffect } from 'react';
+import { Suspense, lazy, useEffect } from 'react';
 import { Provider, useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { initializeApp } from '../../redux/app-reducer';
 import { getInitialized } from '../../redux/app-selectors';
 import store from '../../redux/store'; // Assuming you have a configured Redux store
 import { Preloader } from '../common/preloader/Preloader';
-import { MyDialogs } from '../dialogs/MyDialogs';
 import { Header } from '../header/Header';
 import { Login } from '../login/Login';
 import { Navbar } from '../navbar/Navbar';
-import { Profile } from '../profile/Profile';
 import { Users } from '../users/Users';
 import './App.css';
+
+const Profile = lazy(() => import('../profile/Profile'));
+const MyDialogs = lazy(() => import('../dialogs/MyDialogs'));
 
 const App = () => {
   const dispatch = useDispatch();
@@ -28,32 +29,34 @@ const App = () => {
         <Header />
         <Navbar />
         <main className='main'>
-          {initialized ? (
-            <Routes>
-              <Route
-                path='/profile/:userId?'
-                element={<Profile />}
-              />
-              <Route
-                path='dialogs/*'
-                element={<MyDialogs />}
-              />
-              <Route
-                path='users/'
-                element={<Users />}
-              />
-              <Route
-                path='login/'
-                element={<Login />}
-              />
-              <Route
-                path='/'
-                element={<Navigate to='/profile' />}
-              />
-            </Routes>
-          ) : (
-            <Preloader />
-          )}
+          <Suspense fallback={<Preloader />}>
+            {initialized ? (
+              <Routes>
+                <Route
+                  path='/profile/:userId?'
+                  element={<Profile />}
+                />
+                <Route
+                  path='dialogs/*'
+                  element={<MyDialogs />}
+                />
+                <Route
+                  path='users/'
+                  element={<Users />}
+                />
+                <Route
+                  path='login/'
+                  element={<Login />}
+                />
+                <Route
+                  path='/'
+                  element={<Navigate to='/profile' />}
+                />
+              </Routes>
+            ) : (
+              <Preloader />
+            )}
+          </Suspense>
         </main>
       </BrowserRouter>
     </div>

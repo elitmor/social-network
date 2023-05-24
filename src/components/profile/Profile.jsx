@@ -1,13 +1,13 @@
 import { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
+import { getUserId } from '../../redux/auth-selectors';
 import { getUserProfile } from '../../redux/profile-reducer';
 import { MyPosts } from './myPosts/MyPosts';
 import style from './profile.module.css';
 import { ProfileInfo } from './profileInfo/ProfileInfo';
-import { getUserId } from '../../redux/auth-selectors';
 
-export const Profile = () => {
+const Profile = () => {
   const dispatch = useDispatch();
   const { userId } = useParams();
   const navigate = useNavigate();
@@ -33,3 +33,5 @@ export const Profile = () => {
     </div>
   );
 };
+
+export default Profile;
