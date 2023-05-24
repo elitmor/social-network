@@ -31,15 +31,15 @@ export const Users = () => {
     dispatch(fetchUsers(page, pageSize));
   };
 
-  const pagesCount = Math.ceil(totalUsersCount / pageSize);
-
   return (
     <div>
       {isFetching ? <Preloader /> : null}
       <Paginator
         currentPage={currentPage}
-        pagesCount={pagesCount}
-        handlePageClick={handlePageClick}
+        pagesCount={totalUsersCount}
+        onPageChanged={handlePageClick}
+        totalUsersCount={totalUsersCount}
+        pageSize={pageSize}
       />
       {users.map((user) => (
         <User
