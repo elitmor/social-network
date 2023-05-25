@@ -28,7 +28,7 @@ const Profile = () => {
 
   return (
     <div className={style.profile}>
-      <ProfileInfo />
+      <ProfileInfo isOwner={!userId} />
       <MyPosts />
     </div>
   );
