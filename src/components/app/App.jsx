@@ -1,9 +1,9 @@
 import { Suspense, lazy, useEffect } from 'react';
 import { Provider, useDispatch, useSelector } from 'react-redux';
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { HashRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { initializeApp } from '../../redux/app-reducer';
 import { getInitialized } from '../../redux/app-selectors';
-import store from '../../redux/store'; // Assuming you have a configured Redux store
+import store from '../../redux/store';
 import { Preloader } from '../common/preloader/Preloader';
 import { Header } from '../header/Header';
 import { Login } from '../login/Login';
@@ -25,7 +25,7 @@ const App = () => {
 
   return (
     <div className='wrapper'>
-      <BrowserRouter>
+      <HashRouter>
         <Header />
         <Navbar />
         <main className='main'>
@@ -37,15 +37,15 @@ const App = () => {
                   element={<Profile />}
                 />
                 <Route
-                  path='dialogs/*'
+                  path='/dialogs/*'
                   element={<MyDialogs />}
                 />
                 <Route
-                  path='users/'
+                  path='/users/'
                   element={<Users />}
                 />
                 <Route
-                  path='login/'
+                  path='/login/'
                   element={<Login />}
                 />
                 <Route
@@ -58,7 +58,7 @@ const App = () => {
             )}
           </Suspense>
         </main>
-      </BrowserRouter>
+      </HashRouter>
     </div>
   );
 };
