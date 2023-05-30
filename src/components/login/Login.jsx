@@ -1,11 +1,11 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
-import * as yup from 'yup';
-import style from './login.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { login } from '../../redux/auth-reducer';
 import { Navigate } from 'react-router-dom';
+import * as yup from 'yup';
+import { login } from '../../redux/auth-reducer';
 import { getIsAuth } from '../../redux/auth-selectors';
+import style from './login.module.css';
 
 const schema = yup.object().shape({
   email: yup.string().required('Email is required'),
@@ -16,6 +16,7 @@ const schema = yup.object().shape({
 export const Login = () => {
   const dispatch = useDispatch();
   const isAuth = useSelector(getIsAuth);
+  const captchaUrl = useSelector((state) => state.auth.captchaUrl);
 
   const {
     register,
@@ -27,7 +28,9 @@ export const Login = () => {
   });
 
   const onSubmit = (data) => {
-    dispatch(login(data.email, data.password, data.rememberMe, setError));
+    dispatch(
+      login(data.email, data.password, data.rememberMe, setError, data.captcha),
+    );
   };
 
   if (isAuth) {
@@ -67,6 +70,21 @@ export const Login = () => {
         </label>
         {errors.rememberMe && (
           <p className={style.errorMessage}>{errors.rememberMe.message}</p>
+        )}
+        {captchaUrl && (
+          <img
+            src={captchaUrl}
+            alt='captchaUrl'
+          />
+        )}
+        {captchaUrl && (
+          <div>
+            <input
+              placeholder='please enter characters'
+              {...register('captcha')}
+              className={errors.email ? style.errorInput : ''}
+            />
+          </div>
         )}
         <button type='submit'>Login</button>
       </form>
