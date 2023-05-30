@@ -1,5 +1,7 @@
 body {
   color: #fff;
+  margin: 0;
+  padding: 0;
 }
 
 ul {
@@ -15,7 +17,8 @@ a {
 
 .wrapper {
   display: grid;
-  max-width: 1200px;
+  max-width: 100vw;
+  height: 100vh;
   margin: 0 auto;
   grid-template-areas:
     'header header'
