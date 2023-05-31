@@ -18,8 +18,13 @@ const App = () => {
   const dispatch = useDispatch();
   const initialized = useSelector(getInitialized);
 
+  const catchAllUnhandledErrors = (promiseRejectionEvent) => {
+    console.log('Some error occurred');
+  };
+
   useEffect(() => {
     dispatch(initializeApp());
+    window.addEventListener('unhandledrejection', catchAllUnhandledErrors);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -52,6 +57,10 @@ const App = () => {
                   path='/'
                   element={<Navigate to='/profile' />}
                 />
+                <Route
+                  path='*'
+                  element={<NotFound />}
+                />
               </Routes>
             ) : (
               <Preloader />
@@ -59,6 +68,15 @@ const App = () => {
           </Suspense>
         </main>
       </HashRouter>
+    </div>
+  );
+};
+
+const NotFound = () => {
+  return (
+    <div>
+      <h1>404 - Page Not Found</h1>
+      <p>The page you are looking for does not exist.</p>
     </div>
   );
 };
