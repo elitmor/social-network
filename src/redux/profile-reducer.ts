@@ -1,5 +1,6 @@
 import { v1 } from 'uuid';
 import { profileAPI } from '../api/api';
+import { PhotosType, PostsType, ProfileType } from '../types/types';
 
 const ADD_POST = 'profile/ADD_POST';
 const DELETE_POST = 'profile/DELETE_POST';
@@ -12,12 +13,17 @@ const initialState = {
     { id: v1(), message: 'Hello', likesCount: 5 },
     { id: v1(), message: 'You', likesCount: 3 },
     { id: v1(), message: 'How are you?', likesCount: 7 },
-  ],
-  profile: null,
+  ] as PostsType[],
+  profile: null as ProfileType | null,
   status: '',
 };
 
-export const profileReducer = (state = initialState, action) => {
+type InitialStateType = typeof initialState;
+
+export const profileReducer = (
+  state = initialState,
+  action: any,
+): InitialStateType => {
   switch (action.type) {
     case SET_USER_PROFILE:
       return {
@@ -40,7 +46,10 @@ export const profileReducer = (state = initialState, action) => {
         posts: state.posts.filter((post) => post.id !== action.postId),
       };
     case SAVE_PHOTO_SUCCESS:
-      return { ...state, profile: { ...state.profile, photos: action.photos } };
+      return {
+        ...state,
+        profile: { ...state.profile, photos: action.photos } as ProfileType,
+      };
     case SET_STATUS:
       return {
         ...state,
@@ -51,38 +60,61 @@ export const profileReducer = (state = initialState, action) => {
   }
 };
 
-export const setUserProfileAC = (profile) => ({
+type SetUserProfileType = {
+  type: typeof SET_USER_PROFILE;
+  profile: ProfileType;
+};
+
+export const setUserProfileAC = (profile: ProfileType): SetUserProfileType => ({
   type: SET_USER_PROFILE,
   profile,
 });
 
-export const addPostAC = (newText) => ({ type: ADD_POST, newText });
+type AddPostType = {
+  type: typeof ADD_POST;
+  newText: string;
+};
 
-export const deletePostAC = (postId) => ({
+export const addPostAC = (newText: string): AddPostType => ({
+  type: ADD_POST,
+  newText,
+});
+
+type DeletePostType = {
+  type: typeof DELETE_POST;
+  postId: string;
+};
+
+export const deletePostAC = (postId: string): DeletePostType => ({
   type: DELETE_POST,
   postId: postId,
 });
 
-export const savePhotoSuccess = (photos) => ({
+type SavePhotoSuccessType = {
+  type: typeof SAVE_PHOTO_SUCCESS;
+  photos: PhotosType;
+};
+
+export const savePhotoSuccess = (photos: PhotosType): SavePhotoSuccessType => ({
   type: SAVE_PHOTO_SUCCESS,
   photos,
 });
 
-export const getUserProfile = (userId) => async (dispatch) => {
+export const getUserProfile = (userId: number) => async (dispatch: any) => {
   const res = await profileAPI.getProfile(userId);
 
   dispatch(setUserProfileAC(res.data));
 };
 
-export const setStatus = (status) => ({ type: SET_STATUS, status });
+export const setStatus = (status: string) => ({ type: SET_STATUS, status });
 
-export const getStatus = (userId) => async (dispatch) => {
+export const getStatus = (userId: number) => async (dispatch: any) => {
   const res = await profileAPI.getStatus(userId);
 
   dispatch(setStatus(res.data));
 };
 
-export const updateStatus = (status) => async (dispatch) => {
+export const updateStatus = (status: string) => async (dispatch: any) => {
   try {
     const res = await profileAPI.updateStatus(status);
     if (res.data.resultCode === 0) {
@@ -93,18 +125,19 @@ export const updateStatus = (status) => async (dispatch) => {
   }
 };
 
-export const savePhoto = (file) => async (dispatch) => {
+export const savePhoto = (file: any) => async (dispatch: any) => {
   const res = await profileAPI.savePhoto(file);
   if (res.data.resultCode === 0) {
     dispatch(savePhotoSuccess(res.data.data.photos));
   }
 };
 
-export const saveProfile = (profile) => async (dispatch, getState) => {
-  const userId = getState().auth.userId;
-  const response = await profileAPI.saveProfile(profile);
+export const saveProfile =
+  (profile: ProfileType) => async (dispatch: any, getState: any) => {
+    const userId = getState().auth.userId;
+    const response = await profileAPI.saveProfile(profile);
 
-  if (response.data.resultCode === 0) {
-    dispatch(getUserProfile(userId));
-  }
-};
+    if (response.data.resultCode === 0) {
+      dispatch(getUserProfile(userId));
+    }
+  };
