@@ -1,4 +1,9 @@
-import { authAPI, securityAPI } from '../api/api';
+import {
+  ResultCodes,
+  ResultCodesForCaptcha,
+  authAPI,
+  securityAPI,
+} from '../api/api';
 
 const SET_USER_DATA = 'auth/SET_USER_DATA';
 const GET_CAPTCHA_URL_SUCCESS = 'auth/GET_CAPTCHA_URL_SUCCESS';
@@ -57,9 +62,9 @@ export const setAuthUserData = (
 });
 
 export const getAuthUserData = () => async (dispatch: any) => {
-  const res = await authAPI.me();
-  if (res.data.resultCode === 0) {
-    const { id, email, login } = res.data.data;
+  const meData = await authAPI.me();
+  if (meData.resultCode === ResultCodes.Success) {
+    const { id, email, login } = meData.data;
     dispatch(setAuthUserData(id, email, login, true));
   }
 };
@@ -85,16 +90,16 @@ export const login =
     captcha: string,
   ) =>
   async (dispatch: any) => {
-    const res = await authAPI.login(email, password, rememberMe, captcha);
-    if (res.data.resultCode === 0) {
+    const data = await authAPI.login(email, password, rememberMe, captcha);
+    if (data.resultCode === ResultCodes.Success) {
       await dispatch(getAuthUserData());
     } else {
-      if (res.data.resultCode === 10) {
+      if (data.resultCode === ResultCodesForCaptcha.CaptchaIsRequired) {
         dispatch(getCaptchaUrl());
       }
       const errorMessage =
-        res.data.messages.length > 0
-          ? res.data.messages[0]
+        data.messages.length > 0
+          ? data.messages[0]
           : 'Invalid email or password';
       setError('password', {
         type: 'manual',
@@ -112,7 +117,7 @@ export const getCaptchaUrl = () => async (dispatch: any) => {
 export const logout = () => async (dispatch: any) => {
   const res = await authAPI.logout();
 
-  if (res.data.resultCode === 0) {
+  if (res.data.resultCode === ResultCodes.Success) {
     dispatch(setAuthUserData(null, null, null, false));
   }
 };
