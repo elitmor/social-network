@@ -1,11 +1,19 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import * as yup from 'yup';
 import { login } from '../../redux/auth-reducer';
 import { getIsAuth } from '../../redux/auth-selectors';
+import { AppStateType } from '../../redux/store';
 import style from './login.module.css';
+
+interface LoginFormInputs {
+  email: string;
+  password: string;
+  rememberMe: boolean;
+  captcha: null | string;
+}
 
 const schema = yup.object().shape({
   email: yup.string().required('Email is required'),
@@ -13,22 +21,25 @@ const schema = yup.object().shape({
   rememberMe: yup.boolean().oneOf([true], 'Remember me is required'),
 });
 
-export const Login = () => {
+export const Login: React.FC = () => {
   const dispatch = useDispatch();
   const isAuth = useSelector(getIsAuth);
-  const captchaUrl = useSelector((state) => state.auth.captchaUrl);
+  const captchaUrl = useSelector(
+    (state: AppStateType) => state.auth.captchaUrl,
+  );
 
   const {
     register,
     handleSubmit,
     setError,
     formState: { errors },
-  } = useForm({
+  } = useForm<LoginFormInputs>({
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = (data) => {
+  const onSubmit: SubmitHandler<LoginFormInputs> = (data) => {
     dispatch(
+      // @ts-ignore
       login(data.email, data.password, data.rememberMe, setError, data.captcha),
     );
   };
