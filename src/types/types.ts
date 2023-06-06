@@ -21,6 +21,7 @@ export type PhotosType = {
 };
 
 export type ProfileType = {
+  data(data: any): any;
   userId: number;
   lookingForAJob: boolean;
   lookingForAJobDescription: string;

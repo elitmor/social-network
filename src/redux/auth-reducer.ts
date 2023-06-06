@@ -1,9 +1,6 @@
-import {
-  ResultCodes,
-  ResultCodesForCaptcha,
-  authAPI,
-  securityAPI,
-} from '../api/api';
+import { ResultCodes, ResultCodesForCaptcha } from '../api/api';
+import { authAPI } from '../api/authAPI';
+import { securityAPI } from '../api/securityAPI';
 
 const SET_USER_DATA = 'auth/SET_USER_DATA';
 const GET_CAPTCHA_URL_SUCCESS = 'auth/GET_CAPTCHA_URL_SUCCESS';
@@ -109,8 +106,8 @@ export const login =
   };
 
 export const getCaptchaUrl = () => async (dispatch: any) => {
-  const res = await securityAPI.getCaptchaUrl();
-  const captchaUrl = res.data.url;
+  const data = await securityAPI.getCaptchaUrl();
+  const captchaUrl = data.url;
   dispatch(getCaptchaUrlSuccess(captchaUrl));
 };
 

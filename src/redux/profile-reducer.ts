@@ -1,5 +1,6 @@
 import { v1 } from 'uuid';
-import { profileAPI } from '../api/api';
+
+import { profileAPI } from '../api/profileAPI';
 import { PhotosType, PostsType, ProfileType } from '../types/types';
 
 const ADD_POST = 'profile/ADD_POST';
@@ -101,23 +102,21 @@ export const savePhotoSuccess = (photos: PhotosType): SavePhotoSuccessType => ({
 });
 
 export const getUserProfile = (userId: number) => async (dispatch: any) => {
-  const res = await profileAPI.getProfile(userId);
-
-  dispatch(setUserProfileAC(res.data));
+  const data = await profileAPI.getProfile(userId);
+  dispatch(setUserProfileAC(data));
 };
 
 export const setStatus = (status: string) => ({ type: SET_STATUS, status });
 
 export const getStatus = (userId: number) => async (dispatch: any) => {
-  const res = await profileAPI.getStatus(userId);
-
-  dispatch(setStatus(res.data));
+  const data = await profileAPI.getStatus(userId);
+  dispatch(setStatus(data));
 };
 
 export const updateStatus = (status: string) => async (dispatch: any) => {
   try {
-    const res = await profileAPI.updateStatus(status);
-    if (res.data.resultCode === 0) {
+    const data = await profileAPI.updateStatus(status);
+    if (data.resultCode === 0) {
       dispatch(setStatus(status));
     }
   } catch (err) {
@@ -126,18 +125,18 @@ export const updateStatus = (status: string) => async (dispatch: any) => {
 };
 
 export const savePhoto = (file: any) => async (dispatch: any) => {
-  const res = await profileAPI.savePhoto(file);
-  if (res.data.resultCode === 0) {
-    dispatch(savePhotoSuccess(res.data.data.photos));
+  const data = await profileAPI.savePhoto(file);
+  if (data.resultCode === 0) {
+    dispatch(savePhotoSuccess(data.data.photos));
   }
 };
 
 export const saveProfile =
   (profile: ProfileType) => async (dispatch: any, getState: any) => {
     const userId = getState().auth.userId;
-    const response = await profileAPI.saveProfile(profile);
+    const data = await profileAPI.saveProfile(profile);
 
-    if (response.data.resultCode === 0) {
+    if (data.resultCode === 0) {
       dispatch(getUserProfile(userId));
     }
   };
