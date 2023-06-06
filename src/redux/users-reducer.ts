@@ -1,9 +1,8 @@
 import { Dispatch } from 'redux';
-import { ThunkAction } from 'redux-thunk';
 import { usersAPI } from '../api/usersAPI';
 import { UsersType } from '../types/types';
 import { updateObjectInArray } from '../utils/object-helpers';
-import { AppStateType, InferActionsTypes } from './store';
+import { BaseThunkType, InferActionsTypes } from './store';
 
 const initialState = {
   users: [] as UsersType[],
@@ -13,8 +12,6 @@ const initialState = {
   isFetching: false,
   followingProgress: [] as number[],
 };
-
-type InitialStateType = typeof initialState;
 
 export const usersReducer = (
   state = initialState,
@@ -67,8 +64,6 @@ export const usersReducer = (
   }
 };
 
-type ActionsType = InferActionsTypes<typeof actions>;
-
 const actions = {
   setUsersAС: (users: UsersType[]) =>
     ({
@@ -113,8 +108,6 @@ const actions = {
       userId,
     } as const),
 };
-
-type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsType>;
 
 export const fetchUsers =
   (currentPage: number, pageSize: number): ThunkType =>
@@ -164,3 +157,7 @@ export const unfollow =
       actions.unfollowSuccess,
     );
   };
+
+type InitialStateType = typeof initialState;
+type ActionsType = InferActionsTypes<typeof actions>;
+type ThunkType = BaseThunkType<ActionsType>;

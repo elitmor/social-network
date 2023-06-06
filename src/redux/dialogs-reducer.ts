@@ -1,12 +1,5 @@
 import { v1 } from 'uuid';
-
-const ADD_MESSAGE = 'dialogs/ADD_MESSAGE';
-
-type MessagesType = {
-  id: string;
-  name: string;
-  message: string;
-};
+import { InferActionsTypes } from './store';
 
 const initialState = {
   messages: [
@@ -16,14 +9,21 @@ const initialState = {
   ] as MessagesType[],
 };
 
-type InitialStateType = typeof initialState;
+export const actions = {
+  addMessage: (name: string, newText: string) =>
+    ({
+      type: 'dialogs/ADD_MESSAGE',
+      name,
+      newText,
+    } as const),
+};
 
 export const dialogsReducer = (
   state = initialState,
-  action: any,
+  action: ActionsType,
 ): InitialStateType => {
   switch (action.type) {
-    case ADD_MESSAGE:
+    case 'dialogs/ADD_MESSAGE':
       const newMessage = {
         id: v1(),
         name: action.name,
@@ -38,12 +38,11 @@ export const dialogsReducer = (
   }
 };
 
-type AddMessageType = {
-  type: typeof ADD_MESSAGE;
-  newText: string;
-};
+type InitialStateType = typeof initialState;
+type ActionsType = InferActionsTypes<typeof actions>;
 
-export const addMessageActionCreator = (newText: string): AddMessageType => ({
-  type: ADD_MESSAGE,
-  newText,
-});
+type MessagesType = {
+  id: string;
+  name: string;
+  message: string;
+};

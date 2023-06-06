@@ -1,15 +1,17 @@
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { addPostAC } from '../../../redux/profile-reducer';
 import { getPost } from '../../../redux/profile-selectors';
 import style from './myPosts.module.css';
 import { Post } from './post/Post';
+import { actions } from '../../../redux/profile-reducer';
 
 export const MyPosts = () => {
   const dispatch = useDispatch();
   const posts = useSelector(getPost);
 
   const { register, handleSubmit, reset } = useForm();
+
+  const { addPostAC } = actions;
 
   const onSubmit = (data: any) => {
     dispatch(addPostAC(data.textarea));

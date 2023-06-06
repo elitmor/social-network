@@ -2,11 +2,11 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import { getIsAuth } from '../../redux/auth-selectors';
-import { addMessageActionCreator } from '../../redux/dialogs-reducer';
 import { getMessages } from '../../redux/dialogs-selectors';
 import { Dialog } from './dialog/Dialog';
 import { Message } from './message/Message';
 import style from './myDialogs.module.css';
+import { actions } from '../../redux/dialogs-reducer';
 
 const MyDialogs = (props: any) => {
   const dispatch = useDispatch();
@@ -15,8 +15,10 @@ const MyDialogs = (props: any) => {
 
   const { register, handleSubmit, reset } = useForm();
 
+  const { addMessage } = actions;
+
   const onSubmit = (data: any) => {
-    dispatch(addMessageActionCreator(data.textarea));
+    dispatch(addMessage('Your Name', data.textarea));
     reset();
   };
 
