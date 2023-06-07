@@ -108,7 +108,7 @@ export const updateStatus =
   };
 
 export const savePhoto =
-  (file: any): ThunkType =>
+  (file: Blob): ThunkType =>
   async (dispatch) => {
     const data = await profileAPI.savePhoto(file);
     if (data.resultCode === 0) {

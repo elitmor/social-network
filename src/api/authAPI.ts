@@ -7,7 +7,7 @@ import {
 
 type MeResponseDataType = {
   resultCode: ResultCodes;
-  data: { id: any; email: any; login: any };
+  data: { id: number; email: string; login: string };
   id: string;
   email: string;
   login: string;

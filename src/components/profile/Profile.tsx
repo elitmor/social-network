@@ -20,6 +20,7 @@ const Profile = () => {
   useEffect(() => {
     const profileUserId = userId || authorizedUserId;
     if (profileUserId) {
+      //@ts-ignore
       dispatch(getUserProfile(profileUserId));
     } else {
       redirectToLogin();

@@ -35,4 +35,11 @@ export type UsersType = {
   name: string;
   status: string;
   photos: PhotosType;
+  followed: boolean;
+};
+
+export type DialogType = {
+  message: string;
+  id: string;
+  name: string;
 };

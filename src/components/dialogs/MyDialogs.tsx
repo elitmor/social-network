@@ -8,6 +8,7 @@ import { getMessages } from '../../redux/dialogs-selectors';
 import { Dialog } from './dialog/Dialog';
 import { Message } from './message/Message';
 import style from './myDialogs.module.css';
+import { DialogType } from '../../types/types';
 
 interface MyDialogsFormData {
   textarea: string;
@@ -15,8 +16,8 @@ interface MyDialogsFormData {
 
 const MyDialogs: React.FC = () => {
   const dispatch = useDispatch();
-  const messages = useSelector(getMessages);
-  const isAuth = useSelector(getIsAuth);
+  const messages: Array<DialogType> = useSelector(getMessages);
+  const isAuth: boolean = useSelector(getIsAuth);
 
   const { register, handleSubmit, reset } = useForm<MyDialogsFormData>();
 
@@ -27,7 +28,7 @@ const MyDialogs: React.FC = () => {
     reset();
   };
 
-  const dialogsElements = messages.map((dialog: any) => (
+  const dialogsElements = messages.map((dialog: DialogType) => (
     <Dialog
       key={dialog.id}
       id={dialog.id}
@@ -35,7 +36,7 @@ const MyDialogs: React.FC = () => {
     />
   ));
 
-  const messagesElements = messages.map((m: any) => (
+  const messagesElements = messages.map((m) => (
     <Message
       key={m.id}
       id={m.id}

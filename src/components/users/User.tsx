@@ -2,7 +2,27 @@ import { NavLink } from 'react-router-dom';
 import avatar from '../../assets/avatar.svg';
 import style from './user.module.css';
 
-export const User = ({ user, followingProgress, unfollowUser, followUser }) => {
+interface UserProps {
+  user: {
+    id: number;
+    photos: {
+      small: string | null;
+    };
+    followed: boolean;
+    name: string;
+    status: string;
+  };
+  followingProgress: number[];
+  unfollowUser: (userId: number) => void;
+  followUser: (userId: number) => void;
+}
+
+export const User: React.FC<UserProps> = ({
+  user,
+  followingProgress,
+  unfollowUser,
+  followUser,
+}) => {
   return (
     <div key={user.id}>
       <div>

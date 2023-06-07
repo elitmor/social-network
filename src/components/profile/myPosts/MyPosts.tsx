@@ -1,24 +1,33 @@
-import { useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
+import { actions } from '../../../redux/profile-reducer';
 import { getPost } from '../../../redux/profile-selectors';
+import { AppStateType } from '../../../redux/store';
 import style from './myPosts.module.css';
 import { Post } from './post/Post';
-import { actions } from '../../../redux/profile-reducer';
+
+interface PostData {
+  id: string;
+  message: string;
+  likesCount: number;
+}
+
+interface MyPostsFormData {
+  textarea: string;
+}
 
 export const MyPosts = () => {
   const dispatch = useDispatch();
-  const posts = useSelector(getPost);
+  const posts = useSelector((state: AppStateType) => getPost(state));
 
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit, reset } = useForm<MyPostsFormData>();
 
-  const { addPostAC } = actions;
-
-  const onSubmit = (data: any) => {
-    dispatch(addPostAC(data.textarea));
+  const onSubmit: SubmitHandler<MyPostsFormData> = (data) => {
+    dispatch(actions.addPostAC(data.textarea));
     reset();
   };
 
-  const postsElements = posts.map((post: any) => (
+  const postsElements = posts.map((post: PostData) => (
     <Post
       key={post.id}
       id={post.id}

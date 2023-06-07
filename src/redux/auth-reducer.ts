@@ -1,3 +1,5 @@
+import { FieldError } from 'react-hook-form';
+import { Dispatch } from 'redux';
 import { ResultCodes, ResultCodesForCaptcha } from '../api/api';
 import { authAPI } from '../api/authAPI';
 import { securityAPI } from '../api/securityAPI';
@@ -64,7 +66,7 @@ export const login =
     email: string,
     password: string,
     rememberMe: boolean,
-    setError: any,
+    setError: (name: string, error: FieldError) => void,
     captcha: string,
   ): ThunkType =>
   async (dispatch) => {
@@ -92,10 +94,10 @@ export const getCaptchaUrl = (): ThunkType => async (dispatch) => {
   dispatch(actions.getCaptchaUrlSuccess(captchaUrl));
 };
 
-export const logout = (): ThunkType => async (dispatch) => {
-  const res = await authAPI.logout();
+export const logout = (): ThunkType => async (dispatch: Dispatch) => {
+  const response = await authAPI.logout();
 
-  if (res.data.resultCode === ResultCodes.Success) {
+  if (response.data.resultCode === ResultCodes.Success) {
     dispatch(actions.setAuthUserData(null, null, null, false));
   }
 };

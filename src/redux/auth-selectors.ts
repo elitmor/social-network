@@ -1,6 +1,7 @@
 import { createSelector } from 'reselect';
+import { AppStateType } from './store';
 
-const getAuth = (state) => state.auth;
+const getAuth = (state: AppStateType) => state.auth;
 
 export const getIsAuth = createSelector([getAuth], (auth) => auth.isAuth);
 

@@ -18,11 +18,14 @@ const App = () => {
   const dispatch = useDispatch();
   const initialized = useSelector(getInitialized);
 
-  const catchAllUnhandledErrors = (promiseRejectionEvent) => {
+  const catchAllUnhandledErrors = (
+    promiseRejectionEvent: PromiseRejectionEvent,
+  ) => {
     console.log('Some error occurred');
   };
 
   useEffect(() => {
+    //@ts-ignore
     dispatch(initializeApp());
     window.addEventListener('unhandledrejection', catchAllUnhandledErrors);
     // eslint-disable-next-line react-hooks/exhaustive-deps

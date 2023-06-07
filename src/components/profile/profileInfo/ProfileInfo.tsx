@@ -9,23 +9,44 @@ import { ProfileDataForm } from './profileDataForm/ProfileDataForm';
 import style from './profileInfo.module.css';
 import { ProfileStatus } from './profileStatus/ProfileStatus';
 
-export const ProfileInfo = (props) => {
+interface UserProfile {
+  fullName: string;
+  lookingForAJob: boolean;
+  lookingForAJobDescription: string;
+  aboutMe: string;
+  photos: {
+    small: string | null;
+    large: string | null;
+  };
+  contacts: {
+    [key: string]: string;
+  };
+  userId: number;
+}
+
+interface ProfileInfoProps {
+  isOwner: boolean;
+}
+
+export const ProfileInfo: React.FC<ProfileInfoProps> = (props) => {
   const dispatch = useDispatch();
-  const userProfile = useSelector(getUserProfile);
-  const currentUserId = useSelector(getUserId);
+  const userProfile = useSelector(getUserProfile) as UserProfile | null;
+  const currentUserId = useSelector(getUserId) as number;
   const [editMode, setEditMode] = useState(false);
 
-  const onEditModeChange = (newEditMode) => {
+  const onEditModeChange = (newEditMode: boolean) => {
     setEditMode(newEditMode);
   };
 
-  const onMainPhotoSelected = (e) => {
-    if (e.target.files.length) {
+  const onMainPhotoSelected = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length) {
+      //@ts-ignore
       dispatch(savePhoto(e.target.files[0]));
     }
   };
 
-  const onSubmit = (data) => {
+  const onSubmit = (data: UserProfile) => {
+    //@ts-ignore
     dispatch(saveProfile(data));
     onEditModeChange(false);
   };
@@ -47,13 +68,14 @@ export const ProfileInfo = (props) => {
           type='file'
           onChange={onMainPhotoSelected}
         />
-      ) : (
-        ''
-      )}
-      {currentUserId === userProfile.userId ? <ProfileStatus /> : null}
+      ) : null}
+      {currentUserId === userProfile.userId ? (
+        <ProfileStatus status={''} />
+      ) : null}
       {editMode ? (
         <ProfileDataForm
           defaultValues={userProfile}
+          //@ts-ignore
           onSubmit={onSubmit}
         />
       ) : (
@@ -69,46 +91,58 @@ export const ProfileInfo = (props) => {
   );
 };
 
-const ProfileData = ({ isOwner, goToEditMode }) => {
-  const userProfile = useSelector(getUserProfile);
+interface ProfileDataProps {
+  isOwner: boolean;
+  goToEditMode: () => void;
+  profile: UserProfile;
+}
+
+const ProfileData: React.FC<ProfileDataProps> = ({
+  isOwner,
+  goToEditMode,
+  profile,
+}) => {
   return (
     <div>
-      {isOwner ? <button onClick={goToEditMode}>Edit</button> : ''}
+      {isOwner ? <button onClick={goToEditMode}>Edit</button> : null}
       <div>
         <b>FullName: </b>
-        {userProfile.fullName}
+        {profile.fullName}
       </div>
       <div>
         <b>Looking for a job: </b>
-        {userProfile.lookingForAJob ? 'yes' : 'no'}
+        {profile.lookingForAJob ? 'yes' : 'no'}
       </div>
       <div>
         <b>Skills: </b>
-        {userProfile.lookingForAJobDescription}
+        {profile.lookingForAJobDescription}
       </div>
       <div>
         <b>About me: </b>
-        {userProfile.aboutMe}
+        {profile.aboutMe}
       </div>
       <div>
-        <b>
-          Contacts
-          {Object.keys(userProfile.contacts).map((key) => {
-            return (
-              <Contacts
-                key={key}
-                contactTitle={key}
-                contactValue={userProfile.contacts[key]}
-              />
-            );
-          })}
-        </b>
+        <b>Contacts</b>
+        {Object.keys(profile.contacts).map((key) => {
+          return (
+            <Contacts
+              key={key}
+              contactTitle={key}
+              contactValue={profile.contacts[key]}
+            />
+          );
+        })}
       </div>
     </div>
   );
 };
 
-const Contacts = ({ contactTitle, contactValue }) => {
+interface ContactsProps {
+  contactTitle: string;
+  contactValue: string;
+}
+
+const Contacts: React.FC<ContactsProps> = ({ contactTitle, contactValue }) => {
   return (
     <div>
       <b>{contactTitle}: </b>

@@ -2,17 +2,35 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import style from './profileDataForm.module.css';
 
-export const ProfileDataForm = ({ defaultValues, onSubmit }) => {
+interface Contact {
+  [key: string]: string;
+}
+
+interface ProfileDataFormProps {
+  defaultValues: {
+    fullName: string;
+    lookingForAJob: boolean;
+    lookingForAJobDescription: string;
+    aboutMe: string;
+    contacts: Contact;
+  };
+  onSubmit: (data: Record<string, any>) => Promise<void>;
+}
+
+export const ProfileDataForm: React.FC<ProfileDataFormProps> = ({
+  defaultValues,
+  onSubmit,
+}) => {
   const { register, handleSubmit } = useForm({
     defaultValues: defaultValues,
   });
 
-  const [errorMessages, setErrorMessages] = useState([]);
+  const [errorMessages, setErrorMessages] = useState<string[]>([]);
 
-  const handleFormSubmit = async (data) => {
+  const handleFormSubmit = async (data: Record<string, unknown>) => {
     try {
       await onSubmit(data);
-    } catch (error) {
+    } catch (error: any) {
       if (
         error.response &&
         error.response.data &&

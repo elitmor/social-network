@@ -1,6 +1,7 @@
 import { createSelector } from 'reselect';
+import { AppStateType } from './store';
 
-const getProfilePage = (state) => state.profilePage;
+const getProfilePage = (state: AppStateType) => state.profilePage;
 
 export const getPost = createSelector(
   [getProfilePage],

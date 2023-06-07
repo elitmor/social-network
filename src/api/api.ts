@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { UsersType } from '../types/types';
+import { PhotosType, UsersType } from '../types/types';
 
 export const instance = axios.create({
   baseURL: 'https://social-network.samuraijs.com/api/1.0/',
@@ -19,7 +19,7 @@ export enum ResultCodesForCaptcha {
 }
 
 export type APIResponseType<D = {}, RC = ResultCodes> = {
-  photos(photos: any): any;
+  photos(photos: PhotosType): PhotosType;
   data: D;
   messages: string[];
   resultCode: RC;
