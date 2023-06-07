@@ -1,23 +1,30 @@
-import { useForm } from 'react-hook-form';
+import { FC } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
+
 import { getIsAuth } from '../../redux/auth-selectors';
+import { actions } from '../../redux/dialogs-reducer';
 import { getMessages } from '../../redux/dialogs-selectors';
+import { AppStateType } from '../../redux/store';
 import { Dialog } from './dialog/Dialog';
 import { Message } from './message/Message';
 import style from './myDialogs.module.css';
-import { actions } from '../../redux/dialogs-reducer';
 
-const MyDialogs = (props: any) => {
+interface MyDialogsFormData {
+  textarea: string;
+}
+
+const MyDialogs: FC = () => {
   const dispatch = useDispatch();
-  const messages = useSelector(getMessages);
-  const isAuth = useSelector(getIsAuth);
+  const messages = useSelector((state: AppStateType) => getMessages(state));
+  const isAuth = useSelector((state: AppStateType) => getIsAuth(state));
 
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit, reset } = useForm<MyDialogsFormData>();
 
   const { addMessage } = actions;
 
-  const onSubmit = (data: any) => {
+  const onSubmit: SubmitHandler<MyDialogsFormData> = (data) => {
     dispatch(addMessage('Your Name', data.textarea));
     reset();
   };
@@ -50,7 +57,7 @@ const MyDialogs = (props: any) => {
         ></textarea>
         <button
           className={style.btn}
-          type={'submit'}
+          type='submit'
         >
           Add post
         </button>
