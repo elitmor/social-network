@@ -55,8 +55,10 @@ export const Users: React.FC<PropsType> = (props) => {
           key={user.id}
           user={user}
           followingProgress={followingProgress}
-          unfollowUser={unfollow}
-          followUser={follow}
+          // @ts-ignore
+          unfollowUser={() => dispatch(unfollow(user.id))}
+          // @ts-ignore
+          followUser={() => dispatch(follow(user.id))}
         />
       ))}
     </div>

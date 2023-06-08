@@ -3,6 +3,7 @@ import { usersAPI } from '../api/usersAPI';
 import { UsersType } from '../types/types';
 import { updateObjectInArray } from '../utils/object-helpers';
 import { BaseThunkType, InferActionsTypes } from './store';
+import { APIResponseType } from '../api/api';
 
 const initialState = {
   users: [] as UsersType[],
@@ -65,7 +66,7 @@ export const usersReducer = (
 };
 
 export const actions = {
-  setUsersAС: (users: UsersType[]) =>
+  setUsersAC: (users: UsersType[]) =>
     ({
       type: 'SET_USERS',
       users,
@@ -116,7 +117,7 @@ export const fetchUsers =
     dispatch(actions.setCurrentPageAC(currentPage));
     const data = await usersAPI.getUsers(currentPage, pageSize);
     dispatch(actions.toggleIsFetchingAC(false));
-    dispatch(actions.setUsersAС(data.items));
+    dispatch(actions.setUsersAC(data.items));
     dispatch(actions.setTotalUsersCountAC(data.totalCount));
   };
 
@@ -125,12 +126,12 @@ type DispatchType = Dispatch<ActionsType>;
 const _followUnfollowFlow = async (
   dispatch: DispatchType,
   userId: number,
-  apiMethod: any,
+  apiMethod: (userId: number) => Promise<APIResponseType>,
   actionCreator: (userId: number) => ActionsType,
 ) => {
   dispatch(actions.toggleFollowingProgressAC(true, userId));
   const res = await apiMethod(userId);
-  if (res.data.resultCode === 0) {
+  if (res.resultCode === 0) {
     dispatch(actionCreator(userId));
   }
   dispatch(actions.toggleFollowingProgressAC(false, userId));
@@ -142,7 +143,7 @@ export const follow =
     await _followUnfollowFlow(
       dispatch,
       userId,
-      usersAPI.follow,
+      usersAPI.follow.bind(usersAPI),
       actions.followSuccess,
     );
   };
@@ -153,7 +154,7 @@ export const unfollow =
     await _followUnfollowFlow(
       dispatch,
       userId,
-      usersAPI.unfollow,
+      usersAPI.unfollow.bind(usersAPI),
       actions.unfollowSuccess,
     );
   };
