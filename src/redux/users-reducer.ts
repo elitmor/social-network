@@ -64,7 +64,7 @@ export const usersReducer = (
   }
 };
 
-const actions = {
+export const actions = {
   setUsersAС: (users: UsersType[]) =>
     ({
       type: 'SET_USERS',
@@ -158,6 +158,6 @@ export const unfollow =
     );
   };
 
-type InitialStateType = typeof initialState;
+export type InitialStateType = typeof initialState;
 type ActionsType = InferActionsTypes<typeof actions>;
 type ThunkType = BaseThunkType<ActionsType>;
