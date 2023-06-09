@@ -1,9 +1,9 @@
 import { Dispatch } from 'redux';
+import { APIResponseType } from '../api/api';
 import { usersAPI } from '../api/usersAPI';
 import { UsersType } from '../types/types';
 import { updateObjectInArray } from '../utils/object-helpers';
 import { BaseThunkType, InferActionsTypes } from './store';
-import { APIResponseType } from '../api/api';
 
 const initialState = {
   users: [] as UsersType[],
@@ -12,6 +12,10 @@ const initialState = {
   currentPage: 1,
   isFetching: false,
   followingProgress: [] as number[],
+  filter: {
+    term: '',
+  },
+  friend: null as null | boolean,
 };
 
 export const usersReducer = (
@@ -47,6 +51,11 @@ export const usersReducer = (
       return {
         ...state,
         currentPage: action.currentPage,
+      };
+    case 'SET_FILTER':
+      return {
+        ...state,
+        filter: action.payload,
       };
     case 'TOGGLE_IS_FETCHING':
       return {
@@ -90,6 +99,12 @@ export const actions = {
       currentPage,
     } as const),
 
+  setFilterAC: (filter: any) =>
+    ({
+      type: 'SET_FILTER',
+      payload: filter,
+    } as const),
+
   setTotalUsersCountAC: (totalUsersCount: number) =>
     ({
       type: 'SET_TOTAL_USERS_COUNT',
@@ -111,11 +126,17 @@ export const actions = {
 };
 
 export const fetchUsers =
-  (currentPage: number, pageSize: number): ThunkType =>
+  (currentPage: number, pageSize: number, filter: any): ThunkType =>
   async (dispatch) => {
     dispatch(actions.toggleIsFetchingAC(true));
     dispatch(actions.setCurrentPageAC(currentPage));
-    const data = await usersAPI.getUsers(currentPage, pageSize);
+    dispatch(actions.setFilterAC(filter));
+    const data = await usersAPI.getUsers(
+      currentPage,
+      pageSize,
+      filter?.term,
+      filter?.friend,
+    );
     dispatch(actions.toggleIsFetchingAC(false));
     dispatch(actions.setUsersAC(data.items));
     dispatch(actions.setTotalUsersCountAC(data.totalCount));

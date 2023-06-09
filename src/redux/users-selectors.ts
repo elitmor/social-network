@@ -32,3 +32,8 @@ export const getFollowingProgress = createSelector(
   [getUsersPage],
   (usersPage) => usersPage.followingProgress,
 );
+
+export const getUsersFilter = createSelector(
+  [getUsersPage],
+  (usersPage) => usersPage.filter,
+);

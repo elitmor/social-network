@@ -13,6 +13,7 @@ import { UsersType } from '../../types/types';
 import { Paginator } from '../common/paginator/Paginator';
 import { Preloader } from '../common/preloader/Preloader';
 import { User } from './User';
+import { UsersSearchForm } from './usersSearchForm/UsersSearchForm';
 
 type PropsType = {
   pageTitle: string;
@@ -42,6 +43,7 @@ export const Users: React.FC<PropsType> = (props) => {
     <div>
       <h2>{props.pageTitle}</h2>
       {isFetching ? <Preloader /> : null}
+      <UsersSearchForm />
       <Paginator
         currentPage={currentPage}
         // @ts-ignore

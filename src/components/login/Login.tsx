@@ -4,8 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import * as yup from 'yup';
 import { login } from '../../redux/auth-reducer';
-import { getIsAuth } from '../../redux/auth-selectors';
-import { AppStateType } from '../../redux/store';
+import { getCaptchaUrl, getIsAuth } from '../../redux/auth-selectors';
 import style from './login.module.css';
 
 interface LoginFormInputs {
@@ -24,9 +23,7 @@ const schema = yup.object().shape({
 export const Login: React.FC = () => {
   const dispatch = useDispatch();
   const isAuth = useSelector(getIsAuth);
-  const captchaUrl = useSelector(
-    (state: AppStateType) => state.auth.captchaUrl,
-  );
+  const captchaUrl = useSelector(getCaptchaUrl);
 
   const {
     register,
