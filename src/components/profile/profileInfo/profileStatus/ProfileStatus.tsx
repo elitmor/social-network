@@ -1,15 +1,29 @@
 import { ChangeEventHandler, useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { updateStatus } from '../../../../redux/profile-reducer';
+import { useDispatch, useSelector } from 'react-redux';
+import { getStatus, updateStatus } from '../../../../redux/profile-reducer';
+import { getCurrentStatus } from '../../../../redux/profile-selectors';
 
 type PropsType = {
-  status: string;
+  userId: number; // Add the userId prop to fetch the status from the server
 };
 
 export const ProfileStatus: React.FC<PropsType> = (props) => {
   const [editMode, setEditMode] = useState(false);
-  const [status, setStatus] = useState(props.status);
+  const [status, setStatus] = useState('');
   const dispatch = useDispatch();
+  const currentStatus = useSelector(getCurrentStatus);
+
+  useEffect(() => {
+    if (currentStatus !== status) {
+      setStatus(currentStatus);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentStatus]);
+
+  useEffect(() => {
+    // @ts-ignore
+    dispatch(getStatus(props.userId));
+  }, [dispatch, props.userId]);
 
   const activateEditMode = () => {
     setEditMode(true);
@@ -17,7 +31,7 @@ export const ProfileStatus: React.FC<PropsType> = (props) => {
 
   const deactivateEditMode = () => {
     setEditMode(false);
-    if (status !== props.status) {
+    if (status !== currentStatus) {
       // @ts-ignore
       dispatch(updateStatus(status));
     }
@@ -26,13 +40,6 @@ export const ProfileStatus: React.FC<PropsType> = (props) => {
   const onStatusChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     setStatus(e.currentTarget.value);
   };
-
-  useEffect(() => {
-    if (props.status !== status) {
-      setStatus(props.status);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.status]);
 
   return (
     <div>

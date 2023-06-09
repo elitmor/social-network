@@ -12,3 +12,8 @@ export const getUserProfile = createSelector(
   [getProfilePage],
   (profilePage) => profilePage.profile,
 );
+
+export const getCurrentStatus = createSelector(
+  [getProfilePage],
+  (profilePage) => profilePage.status,
+);

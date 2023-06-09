@@ -70,7 +70,7 @@ export const ProfileInfo: React.FC<ProfileInfoProps> = (props) => {
         />
       ) : null}
       {currentUserId === userProfile.userId ? (
-        <ProfileStatus status={''} />
+        <ProfileStatus userId={userProfile.userId} />
       ) : null}
       {editMode ? (
         <ProfileDataForm
