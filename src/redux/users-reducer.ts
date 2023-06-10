@@ -14,8 +14,8 @@ const initialState = {
   followingProgress: [] as number[],
   filter: {
     term: '',
+    friend: null as null | boolean,
   },
-  friend: null as null | boolean,
 };
 
 export const usersReducer = (
