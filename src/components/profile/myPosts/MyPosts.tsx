@@ -1,3 +1,5 @@
+import SendIcon from '@mui/icons-material/Send';
+import { Button, TextareaAutosize } from '@mui/material';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { actions } from '../../../redux/profile-reducer';
@@ -39,17 +41,18 @@ export const MyPosts = () => {
   return (
     <div className={style.posts}>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <textarea
+        <TextareaAutosize
           className={style.textarea}
           placeholder='Enter your message'
           {...register('textarea')}
-        ></textarea>
-        <button
-          className={style.btn}
+        ></TextareaAutosize>
+        <Button
+          variant='contained'
           type='submit'
+          endIcon={<SendIcon />}
         >
           Add post
-        </button>
+        </Button>
       </form>
       {postsElements}
     </div>

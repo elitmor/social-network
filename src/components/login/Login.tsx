@@ -1,4 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup';
+import { Button } from '@mui/material';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
@@ -94,7 +95,12 @@ export const Login: React.FC = () => {
             />
           </div>
         )}
-        <button type='submit'>Login</button>
+        <Button
+          variant='contained'
+          type='submit'
+        >
+          Login
+        </Button>
       </form>
     </div>
   );

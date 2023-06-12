@@ -1,3 +1,4 @@
+import { Button, TextareaAutosize } from '@mui/material';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import style from './profileDataForm.module.css';
@@ -68,7 +69,7 @@ export const ProfileDataForm: React.FC<ProfileDataFormProps> = ({
           Looking for a job
         </label>
         <label>
-          <textarea
+          <TextareaAutosize
             placeholder='Job Description'
             {...register('lookingForAJobDescription')}
           />
@@ -108,7 +109,12 @@ export const ProfileDataForm: React.FC<ProfileDataFormProps> = ({
         </div>
       )}
 
-      <button type='submit'>Save</button>
+      <Button
+        variant='contained'
+        type='submit'
+      >
+        Save
+      </Button>
     </form>
   );
 };

@@ -1,3 +1,4 @@
+import { Button } from '@mui/material';
 import cn from 'classnames';
 import { useState } from 'react';
 import style from './paginator.module.css';
@@ -41,13 +42,14 @@ export const Paginator: React.FC<PropsType> = ({
   return (
     <div className={style.paginator}>
       {currentPortion > 1 && (
-        <button
+        <Button
+          variant='contained'
           onClick={() => {
             handlePortionClick(currentPortion - 1);
           }}
         >
-          PREV
-        </button>
+          Prev
+        </Button>
       )}
 
       {pages
@@ -70,13 +72,14 @@ export const Paginator: React.FC<PropsType> = ({
         ))}
 
       {portionCount > currentPortion && (
-        <button
+        <Button
+          variant='contained'
           onClick={() => {
             handlePortionClick(currentPortion + 1);
           }}
         >
           NEXT
-        </button>
+        </Button>
       )}
     </div>
   );

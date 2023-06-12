@@ -1,3 +1,4 @@
+import { Button } from '@mui/material';
 import { NavLink } from 'react-router-dom';
 import avatar from '../../assets/avatar.svg';
 import style from './user.module.css';
@@ -34,25 +35,23 @@ export const User: React.FC<UserProps> = ({
           />
         </NavLink>
         {user.followed === true ? (
-          <button
-            className={style.btn}
+          <Button
             disabled={followingProgress.some((id) => id === user.id)}
             onClick={() => {
               unfollowUser(user.id);
             }}
           >
             UnFollow
-          </button>
+          </Button>
         ) : (
-          <button
-            className={style.btn}
+          <Button
             disabled={followingProgress.some((id) => id === user.id)}
             onClick={() => {
               followUser(user.id);
             }}
           >
             Follow
-          </button>
+          </Button>
         )}
       </div>
       <div>

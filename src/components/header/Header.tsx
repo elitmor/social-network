@@ -1,3 +1,4 @@
+import { Button } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import logo from '../../assets/logo.svg';
@@ -27,7 +28,12 @@ export const Header = () => {
         {isAuth ? (
           <>
             <span>{login}</span>
-            <button onClick={handleLogout}>Logout</button>
+            <Button
+              variant='contained'
+              onClick={handleLogout}
+            >
+              Logout
+            </Button>
           </>
         ) : (
           <NavLink to='/login'>Login</NavLink>

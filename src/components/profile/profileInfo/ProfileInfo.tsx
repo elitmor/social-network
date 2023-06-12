@@ -1,3 +1,4 @@
+import { Button, Input } from '@mui/material';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import avatar from '../../../assets/avatar.svg';
@@ -64,7 +65,7 @@ export const ProfileInfo: React.FC<ProfileInfoProps> = (props) => {
         alt='avatar'
       />
       {props.isOwner ? (
-        <input
+        <Input
           type='file'
           onChange={onMainPhotoSelected}
         />
@@ -104,7 +105,14 @@ const ProfileData: React.FC<ProfileDataProps> = ({
 }) => {
   return (
     <div>
-      {isOwner ? <button onClick={goToEditMode}>Edit</button> : null}
+      {isOwner ? (
+        <Button
+          variant='contained'
+          onClick={goToEditMode}
+        >
+          Edit
+        </Button>
+      ) : null}
       <div>
         <b>FullName: </b>
         {profile.fullName}

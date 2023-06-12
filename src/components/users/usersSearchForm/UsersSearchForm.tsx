@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { actions, fetchUsers } from '../../../redux/users-reducer';
 import { getPageSize } from '../../../redux/users-selectors';
+import { Button } from '@mui/material';
 
 type FormType = {
   term: string;
@@ -46,12 +47,13 @@ export const UsersSearchForm: React.FC = React.memo(() => {
           <option value='true'>Only follow</option>
           <option value='false'>Only unfollow</option>
         </select>
-        <button
+        <Button
+          variant='contained'
           type='submit'
           disabled={isSubmitting}
         >
           Find
-        </button>
+        </Button>
       </form>
     </div>
   );

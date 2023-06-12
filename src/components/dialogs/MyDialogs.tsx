@@ -1,3 +1,4 @@
+import { Button, TextareaAutosize } from '@mui/material';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
@@ -5,10 +6,11 @@ import { Navigate } from 'react-router-dom';
 import { getIsAuth } from '../../redux/auth-selectors';
 import { actions } from '../../redux/dialogs-reducer';
 import { getMessages } from '../../redux/dialogs-selectors';
+import { DialogType } from '../../types/types';
 import { Dialog } from './dialog/Dialog';
 import { Message } from './message/Message';
 import style from './myDialogs.module.css';
-import { DialogType } from '../../types/types';
+import SendIcon from '@mui/icons-material/Send';
 
 interface MyDialogsFormData {
   textarea: string;
@@ -49,17 +51,18 @@ const MyDialogs: React.FC = () => {
       <div className={style.items}>{dialogsElements}</div>
       <div className={style.messages}>{messagesElements}</div>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <textarea
+        <TextareaAutosize
           className={style.textarea}
           placeholder='Enter your message'
           {...register('textarea')}
-        ></textarea>
-        <button
-          className={style.btn}
+        ></TextareaAutosize>
+        <Button
+          variant='contained'
           type='submit'
+          endIcon={<SendIcon />}
         >
           Add post
-        </button>
+        </Button>
       </form>
     </div>
   ) : (
