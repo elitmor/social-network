@@ -41,6 +41,18 @@ export const Navbar = () => {
             Users
           </NavLink>
         </li>
+        <li className={style.item}>
+          <NavLink
+            to='/chat'
+            style={({ isActive }) => {
+              return {
+                color: isActive ? '#40c0e7' : 'inherit',
+              };
+            }}
+          >
+            Chat
+          </NavLink>
+        </li>
       </ul>
     </nav>
   );

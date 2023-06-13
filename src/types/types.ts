@@ -43,3 +43,12 @@ export type DialogType = {
   id: string;
   name: string;
 };
+
+export type ChatMessageAPIType = {
+  message: string;
+  photo: string;
+  userId: number;
+  userName: string;
+};
+
+export type StatusType = 'pending' | 'ready' | 'error';

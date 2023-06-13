@@ -13,6 +13,7 @@ import './App.css';
 
 const Profile = lazy(() => import('../profile/Profile'));
 const MyDialogs = lazy(() => import('../dialogs/MyDialogs'));
+const ChatPage = lazy(() => import('../pages/chatPage/ChatPage'));
 
 const App = () => {
   const dispatch = useDispatch();
@@ -53,8 +54,12 @@ const App = () => {
                   element={<Users pageTitle='Samurai' />}
                 />
                 <Route
-                  path='/login/'
+                  path='/login'
                   element={<Login />}
+                />
+                <Route
+                  path='/chat'
+                  element={<ChatPage />}
                 />
                 <Route
                   path='/'

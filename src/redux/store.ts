@@ -8,6 +8,7 @@ import {
 import thunkMiddleware, { ThunkAction } from 'redux-thunk';
 import { appReducer } from './app-reducer';
 import { authReducer } from './auth-reducer';
+import chatReducer from './chat-reducer';
 import { dialogsReducer } from './dialogs-reducer';
 import { profileReducer } from './profile-reducer';
 import { usersReducer } from './users-reducer';
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
   usersPage: usersReducer,
   auth: authReducer,
   app: appReducer,
+  chat: chatReducer,
 });
 
 type RootReducerType = typeof rootReducer;
