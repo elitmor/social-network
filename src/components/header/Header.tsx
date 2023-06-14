@@ -24,10 +24,10 @@ export const Header = () => {
         src={logo}
         alt='logo'
       />
-      <div className={style.login}>
+      <div className={style.logout}>
         {isAuth ? (
           <>
-            <span>{login}</span>
+            <span className={style.login}>{login}</span>
             <Button
               variant='contained'
               onClick={handleLogout}

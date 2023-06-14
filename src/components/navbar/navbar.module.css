@@ -1,8 +1,3 @@
-.nav {
-  grid-area: nav;
-  background-color: #20232a;
-}
-
 .item {
-  margin: 0.5rem;
+  margin: 0.75rem;
 }

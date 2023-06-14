@@ -2,12 +2,13 @@ import { Button } from '@mui/material';
 import React, { FC, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
+  sendMessage,
   startMessagesListening,
   stopMessagesListening,
-  sendMessage,
 } from '../../../redux/chat-reducer';
 import { AppStateType } from '../../../redux/store';
 import { ChatMessageAPIType } from '../../../types/types';
+import style from './chatPage.module.css';
 
 const ChatPage: React.FC = () => {
   return (
@@ -88,18 +89,15 @@ const Messages: React.FC<{}> = () => {
 
 const Message: FC<{ message: ChatMessageAPIType }> = React.memo(
   ({ message }) => {
-    console.log('>>>>>>Message');
     return (
       <div>
+        <div className={style.userName}>{message.userName}</div>
         <img
+          className={style.photo}
           src={message.photo}
-          style={{ width: '30px' }}
-          alt=''
+          alt='photos'
         />
-        <b>{message.userName}</b>
-        <br />
-        {message.message}
-        <hr />
+        <div>{message.message}</div>
       </div>
     );
   },
@@ -130,6 +128,7 @@ const AddMessageForm: React.FC<{}> = () => {
       </div>
       <div>
         <Button
+          variant='contained'
           disabled={status !== 'ready'}
           onClick={sendMessageHandler}
         >

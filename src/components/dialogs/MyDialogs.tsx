@@ -48,22 +48,24 @@ const MyDialogs: React.FC = () => {
 
   return isAuth ? (
     <div className={style.dialogs}>
-      <div className={style.items}>{dialogsElements}</div>
+      <div className={style.items}>
+        {dialogsElements}
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <TextareaAutosize
+            className={style.textarea}
+            placeholder='Enter your message'
+            {...register('textarea')}
+          ></TextareaAutosize>
+          <Button
+            variant='contained'
+            type='submit'
+            endIcon={<SendIcon />}
+          >
+            Add post
+          </Button>
+        </form>
+      </div>
       <div className={style.messages}>{messagesElements}</div>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <TextareaAutosize
-          className={style.textarea}
-          placeholder='Enter your message'
-          {...register('textarea')}
-        ></TextareaAutosize>
-        <Button
-          variant='contained'
-          type='submit'
-          endIcon={<SendIcon />}
-        >
-          Add post
-        </Button>
-      </form>
     </div>
   ) : (
     <Navigate to='/login' />

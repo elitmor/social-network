@@ -7,10 +7,11 @@
 }
 
 .textarea {
+  display: block;
   margin-bottom: 0.5rem;
 }
 
 .btn {
-  display: block;
+  width: 200px;
   margin-bottom: 0.5rem;
 }

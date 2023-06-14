@@ -47,6 +47,7 @@ export const MyPosts = () => {
           {...register('textarea')}
         ></TextareaAutosize>
         <Button
+          className={style.btn}
           variant='contained'
           type='submit'
           endIcon={<SendIcon />}

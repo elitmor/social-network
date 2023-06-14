@@ -98,13 +98,7 @@ export const Users: React.FC<PropsType> = (props) => {
       <h2>{props.pageTitle}</h2>
       {isFetching ? <Preloader /> : null}
       <UsersSearchForm />
-      <Paginator
-        currentPage={currentPage}
-        totalItemsCount={totalUsersCount}
-        onPageChanged={handlePageClick}
-        pageSize={pageSize}
-        portionSize={10}
-      />
+
       {users.map((user: UsersType) => (
         <User
           key={user.id}
@@ -116,6 +110,13 @@ export const Users: React.FC<PropsType> = (props) => {
           followUser={() => dispatch(follow(user.id))}
         />
       ))}
+      <Paginator
+        currentPage={currentPage}
+        totalItemsCount={totalUsersCount}
+        onPageChanged={handlePageClick}
+        pageSize={pageSize}
+        portionSize={10}
+      />
     </div>
   );
 };

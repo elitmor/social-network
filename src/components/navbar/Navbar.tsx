@@ -11,6 +11,9 @@ export const Navbar = () => {
             style={({ isActive }) => {
               return {
                 color: isActive ? '#40c0e7' : 'inherit',
+                ':hover': {
+                  color: 'red', // Define the hover color here
+                },
               };
             }}
           >

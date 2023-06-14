@@ -1,4 +1,4 @@
-import { Button, Input } from '@mui/material';
+import { Button } from '@mui/material';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import avatar from '../../../assets/avatar.svg';
@@ -57,7 +57,7 @@ export const ProfileInfo: React.FC<ProfileInfoProps> = (props) => {
   }
 
   return (
-    <div>
+    <div className={style.profileInfo}>
       <h3 className={style.title}>My posts</h3>
       <img
         className={style.avatar}
@@ -65,7 +65,8 @@ export const ProfileInfo: React.FC<ProfileInfoProps> = (props) => {
         alt='avatar'
       />
       {props.isOwner ? (
-        <Input
+        <input
+          className={style.inputFile}
           type='file'
           onChange={onMainPhotoSelected}
         />

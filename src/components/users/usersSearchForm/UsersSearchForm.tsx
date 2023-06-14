@@ -1,9 +1,10 @@
+import { Button } from '@mui/material';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { actions, fetchUsers } from '../../../redux/users-reducer';
 import { getPageSize } from '../../../redux/users-selectors';
-import { Button } from '@mui/material';
+import style from './usersSearchForm.module.css';
 
 type FormType = {
   term: string;
@@ -42,12 +43,16 @@ export const UsersSearchForm: React.FC = React.memo(() => {
           type='text'
           {...register('term')}
         />
-        <select {...register('friend')}>
+        <select
+          className={style.select}
+          {...register('friend')}
+        >
           <option value='null'>All</option>
           <option value='true'>Only follow</option>
           <option value='false'>Only unfollow</option>
         </select>
         <Button
+          className={style.btn}
           variant='contained'
           type='submit'
           disabled={isSubmitting}

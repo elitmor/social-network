@@ -1,7 +1,12 @@
-.title {
-  margin-bottom: 0.5rem;
+.profileInfo {
+  line-height: 1.75;
 }
 
-.avatar {
-  max-width: 100px;
+.title {
+  margin-bottom: 0.75rem;
+}
+
+.inputFile {
+  display: block;
+  margin: 0.5rem 0;
 }

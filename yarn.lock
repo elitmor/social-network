@@ -1374,6 +1374,11 @@
   resolved "https://registry.yarnpkg.com/@eslint/js/-/js-8.38.0.tgz#73a8a0d8aa8a8e6fe270431c5e72ae91b5337892"
   integrity sha512-IoD2MfUnOV58ghIHCiil01PcohxjbYR/qCxsoC+xNgUwh1EY8jOOrYmu3d3a71+tJJ23uscEV4X2HJWMsPJu4g==
 
+"@fontsource/roboto@^5.0.3":
+  version "5.0.3"
+  resolved "https://registry.yarnpkg.com/@fontsource/roboto/-/roboto-5.0.3.tgz#bff6ce627b8c537e8f56e6f2bba221f425bfdf78"
+  integrity sha512-jbZDFwEFARDlo8TqG7th/xjhuq87GYfFpFb+uxuy+0Ng1bhRVgBRWlLj8+WIKhCTOr+h4QXbjpybLWFLUirOwQ==
+
 "@hookform/resolvers@^3.1.0":
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/@hookform/resolvers/-/resolvers-3.1.0.tgz#ff83ef4aa6078173201da131ceea4c3583b67034"

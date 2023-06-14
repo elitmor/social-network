@@ -1,15 +1,14 @@
 .header {
-  grid-area: header;
-  background-color: #20232a;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 .header__logo {
-  width: 50px;
+  width: 66px;
   display: inline-block;
 }
 
-.login {
-  margin-right: 1rem;
+.login,
+.logout {
+  margin-right: 0.75rem;
 }

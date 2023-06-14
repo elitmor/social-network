@@ -1,33 +1,14 @@
-body {
-  color: #fff;
+* {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-ul {
+ul,
+li {
   list-style: none;
-  margin: 0;
-  padding: 0;
 }
 
 a {
-  color: inherit;
   text-decoration: none;
-}
-
-.wrapper {
-  display: grid;
-  max-width: 100vw;
-  height: 100vh;
-  margin: 0 auto;
-  grid-template-areas:
-    'header header'
-    'nav content';
-  grid-template-rows: 60px 1fr;
-  grid-template-columns: 2fr 10fr;
-}
-
-.main {
-  grid-area: content;
-  background-color: #20232a;
 }
