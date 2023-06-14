@@ -1,0 +1,1 @@
+{"version":3,"file":"static/css/50.d7f9424a.chunk.css","mappings":"AAAA,0BACE,aACF,CAEA,uBACE,UACF","sources":["components/pages/chatPage/chatPage.module.css"],"sourcesContent":[".userName {\n  color: #40c0e7;\n}\n\n.photo {\n  width: 50px;\n}\n"],"names":[],"sourceRoot":""}
